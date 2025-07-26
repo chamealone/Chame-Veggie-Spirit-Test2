@@ -1,0 +1,301 @@
+import React, { useState } from 'react';
+
+export default function SpiritVeggieTest() {
+  const [language, setLanguage] = useState('id');
+  const [step, setStep] = useState('intro');
+  const [name, setName] = useState('');
+  const [ig, setIg] = useState('');
+  const [answers, setAnswers] = useState([]);
+
+  const isIndo = language === 'id';
+
+  const handleNext = () => {
+    if (step === 'intro') {
+      setStep('prologue');
+    } else if (step === 'prologue') {
+      setStep('quiz1');
+    } else if (step.startsWith('quiz') && parseInt(step.replace('quiz', '')) < 8) {
+      const nextStep = `quiz${parseInt(step.replace('quiz', '')) + 1}`;
+      setStep(nextStep);
+    } else if (step === 'quiz8') {
+      alert('Quiz selesai! Menentukan spirit kamu...');
+      // TODO: logic menentukan hasil akhir
+    }
+  };
+
+  const handleAnswer = (choice) => {
+    setAnswers([...answers, choice]);
+    handleNext();
+  };
+
+  const renderQuestion = (question, options) => (
+    <div className="w-full max-w-md space-y-4 text-left">
+      <p className="font-semibold text-lg">{question}</p>
+      <div className="space-y-2">
+        {options.map((opt, idx) => (
+          <button
+            key={idx}
+            onClick={() => handleAnswer(opt[0])}
+            className="w-full text-left border border-gray-300 px-4 py-2 rounded hover:bg-gray-100"
+          >
+            <strong>{opt[0]}</strong>. {opt[1]}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+
+  return (
+    <div className="min-h-screen bg-[#f3f3f0] text-gray-800 p-4 flex flex-col items-center justify-center">
+      {step === 'intro' && (
+        <div className="w-full max-w-md space-y-4 text-center">
+          <h1 className="text-2xl font-bold">What's Your Spirit Veggie Test</h1>
+          <p className="text-sm">by Chamealone</p>
+          <p>{isIndo ? 'Temukan spirit apa yang sebenarnya kamu butuhkan saat ini.' : 'Discover the spirit you truly need right now.'}</p>
+
+          <input
+            type="text"
+            placeholder={isIndo ? 'Masukkan namamu' : 'Enter your name'}
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            className="w-full border rounded px-3 py-2"
+          />
+          <input
+            type="text"
+            placeholder={isIndo ? 'Masukkan IG kamu' : 'Enter your Instagram'}
+            value={ig}
+            onChange={(e) => setIg(e.target.value)}
+            className="w-full border rounded px-3 py-2"
+          />
+
+          <div className="flex justify-center gap-2">
+            <button onClick={() => setLanguage('id')} className={`px-4 py-2 rounded ${isIndo ? 'bg-green-400 text-white' : 'bg-white border'}`}>
+              Indo
+            </button>
+            <button onClick={() => setLanguage('en')} className={`px-4 py-2 rounded ${!isIndo ? 'bg-green-400 text-white' : 'bg-white border'}`}>
+              English
+            </button>
+          </div>
+
+          <button
+            onClick={handleNext}
+            className="bg-black text-white px-6 py-2 rounded hover:bg-gray-800"
+          >
+            {isIndo ? 'Mulai' : 'Start'}
+          </button>
+        </div>
+      )}
+
+      {step === 'prologue' && (
+        <div className="w-full max-w-md space-y-4 text-left">
+          {isIndo ? (
+            <>
+              <p>Sore itu kamu jalan santai.</p>
+              <p>Langit murung.</p>
+              <p>Nginjek daun.</p>
+              <p>Jeblos.</p>
+              <p className="italic">(animasi page jatuh)</p>
+              <p>Pas bangun, kamu udah di lorong batu.</p>
+              <p>Dingin. Sunyi.</p>
+              <p>Ada makhluk hijau duduk di ujung.</p>
+              <p>Ekornya segitiga.</p>
+              <p className="font-semibold mt-4">“Hai, aku Chame. Aku juga tersesat, mau cari jalan pulang bareng gak?”</p>
+            </>
+          ) : (
+            <>
+              <p>That afternoon, you were out for a quiet walk.</p>
+              <p>The sky was gloomy.</p>
+              <p>You stepped on a leaf.</p>
+              <p>Crack. Fell.</p>
+              <p className="italic">(falling page animation)</p>
+              <p>When you came to, you were in a stone hallway.</p>
+              <p>Cold. Silent.</p>
+              <p>A green creature sat at the end.</p>
+              <p>Its tail was triangular.</p>
+              <p className="font-semibold mt-4">“Hi, I’m Chame. I’m lost too. Wanna find a way home together?”</p>
+            </>
+          )}
+
+          <button
+            onClick={handleNext}
+            className="mt-6 bg-black text-white px-6 py-2 rounded hover:bg-gray-800 w-full"
+          >
+            {isIndo ? 'Lanjut ke kuis' : 'Continue to quiz'}
+          </button>
+        </div>
+      )}
+
+      {step.startsWith('quiz') && (
+        <>
+          {step === 'quiz1' && renderQuestion(
+            '❶ Portal yang kamu lewati… hilang. Gak ada jalan balik. Cuma lorong dan langkahmu sendiri. Kamu ngerasa…',
+            [
+              ['A', '“Mungkin ini salahku, kayak biasa.”'],
+              ['B', '“Kayaknya otakku yang bikin semua ini.”'],
+              ['C', '“Gak yakin ada yang peduli juga.”'],
+              ['D', '“Gak apa-apa. Paling nggak sepi-sepi amat.”'],
+              ['E', '“Mungkin ini cara semesta ngajak ngobrol.”']
+            ]
+          )}
+
+          {step === 'quiz2' && renderQuestion(
+            '❷ Di depanmu, batu besar nutupin jalan. Chame nunjuk ke lima tombol aneh di tembok. Kamu pencet yang mana?',
+            [
+              ['A', 'Yang paling kusam. Kayak sering dilupain.'],
+              ['B', 'Yang warna-warni. Kayak permen.'],
+              ['C', 'Yang hangat, tapi ada retaknya.'],
+              ['D', 'Yang logam. Keras dan rapi banget.'],
+              ['E', 'Yang kayu. Penuh coretan kecil.']
+            ]
+          )}
+
+          {step === 'quiz3' && renderQuestion(
+            '❸ Kamu masuk ke lorong. Gak jelas arahnya, tapi kaki kamu terus jalan. Langkahmu gimana?',
+            [
+              ['A', 'Pelan-pelan. Rasain setiap langkah.'],
+              ['B', 'Teriak aja, biar rame.'],
+              ['C', 'Cepetin aja. Biar cepet selesai.'],
+              ['D', 'Pegang lengan Chame, diem-diem.'],
+              ['E', 'Berhenti sebentar. Dengerin napas sendiri.']
+            ]
+          )}
+
+          {step === 'quiz4' && renderQuestion(
+            '❹ Di pojok lorong, ada cermin pecah. Salah satu pantulannya… kamu. Kecil. Lagi nangis. Kamu...?',
+            [
+              ['A', 'Langsung peluk. Gak usah mikir.'],
+              ['B', 'Air mataku ikut jatuh juga.'],
+              ['C', '“Ya ampun, ini gue banget.”'],
+              ['D', 'Liatin aja lama-lama. Diam.'],
+              ['E', 'Tutup mata. Terlalu banyak rasanya.']
+            ]
+          )}
+
+          {step === 'quiz5' && renderQuestion(
+            '❺ Ada kertas jatuh dari langit-langit. Tulisannya kayak tulisanmu waktu kecil: "Maaf ya, aku belum cukup baik." Reaksimu?',
+            [
+              ['A', '“Kamu cukup, kok. Sini aku temenin.”'],
+              ['B', '“Sakit sih. Tapi aku juga pernah mikir gitu.”'],
+              ['C', '“Aku gak tahu harus jawab apa.”'],
+              ['D', '“Kenapa sih kita selalu nuntut diri sendiri?”'],
+              ['E', '“Aku cuma pengen duduk bareng dia.”']
+            ]
+          )}
+
+          {step === 'quiz6' && renderQuestion(
+            '❻ Kamu nemu rak mainan lama. Ada satu boneka rusak. Tapi dia masih duduk di sana. Kamu...?',
+            [
+              ['A', 'Ajak main. Biar dia gak ngerasa sendirian.'],
+              ['B', 'Perbaiki pelan-pelan. Kalau bisa.'],
+              ['C', 'Bawa pulang. Mungkin dia butuh rumah baru.'],
+              ['D', 'Tanya pelan, “Siapa yang ninggalin kamu?”'],
+              ['E', 'Duduk di sebelahnya. Diam-diam aja.']
+            ]
+          )}
+
+          {step === 'quiz7' && renderQuestion(
+            '❼ Lorong bercabang dua. Satu terang, penuh suara. Satunya gelap, sepi. Pilih yang mana?',
+            [
+              ['A', 'Gelap. Tapi tenang.'],
+              ['B', 'Terang. Tapi rame banget.'],
+              ['C', 'Diam dulu. Gak mau milih buru-buru.'],
+              ['D', 'Gelap. Siapa tahu ada sesuatu di sana.'],
+              ['E', 'Terang aja deh. Yang penting gak sendiri.']
+            ]
+          )}
+
+          {step === 'quiz8' && renderQuestion(
+            '❽ Di ujung lorong, pintu terakhir nunggu. Bisa kebuka… kalau kamu jujur. Kalimat mana yang paling kamu butuh sekarang?',
+            [
+              ['A', '“Aku tetap berharga walau gak sempurna.”'],
+              ['B', '“Aku boleh ngerasa semua hal.”'],
+              ['C', '“Aku butuh istirahat, dan itu sah.”'],
+              ['D', '“Aku boleh bilang enggak.”'],
+              ['E', '“Aku gak sendirian.”']
+            ]
+          )}
+        </>
+      )}
+    </div>
+  );
+}
+export const questionMappings = [
+  {
+    question: 1,
+    A: ["Kroot", "Gowlic"],
+    B: ["Banion", "Gingeer"],
+    C: ["Mubii", "Potatoad"],
+    D: ["Onyun", "Bitty"],
+    E: ["Bitty", "Gingeer"],
+  },
+  {
+    question: 2,
+    A: ["Kroot", "Banion"],
+    B: ["Bitty", "Onyun"],
+    C: ["Mubii", "Potatoad"],
+    D: ["Gowlic", "Gingeer"],
+    E: ["Banion", "Potatoad"],
+  },
+  {
+    question: 3,
+    A: ["Gingeer", "Mubii"],
+    B: ["Onyun", "Bitty"],
+    C: ["Kroot", "Banion"],
+    D: ["Mubii", "Potatoad"],
+    E: ["Potatoad", "Gingeer"],
+  },
+  {
+    question: 4,
+    A: ["Mubii", "Kroot"],
+    B: ["Banion", "Potatoad"],
+    C: ["Bitty", "Onyun"],
+    D: ["Gingeer", "Gowlic"],
+    E: ["Gowlic", "Potatoad"],
+  },
+  {
+    question: 5,
+    A: ["Kroot", "Mubii"],
+    B: ["Mubii", "Banion"],
+    C: ["Bitty", "Gowlic"],
+    D: ["Banion", "Gowlic"],
+    E: ["Potatoad", "Gingeer"],
+  },
+  {
+    question: 6,
+    A: ["Mubii", "Onyun"],
+    B: ["Gingeer", "Gowlic"],
+    C: ["Kroot", "Potatoad"],
+    D: ["Banion", "Onyun"],
+    E: ["Bitty", "Mubii"],
+  },
+  {
+    question: 7,
+    A: ["Gowlic", "Potatoad"],
+    B: ["Onyun", "Bitty"],
+    C: ["Banion", "Gingeer"],
+    D: ["Bitty", "Gingeer"],
+    E: ["Kroot", "Onyun"],
+  },
+  {
+    question: 8,
+    A: ["Kroot", "Gingeer"],
+    B: ["Banion", "Mubii"],
+    C: ["Potatoad", "Mubii"],
+    D: ["Gowlic", "Mubii"],
+    E: ["Bitty", "Onyun"],
+  },
+];
+const spiritScores = {
+  Kroot: 0, Banion: 0, Gingeer: 0, Gowlic: 0,
+  Mubii: 0, Potatoad: 0, Onyun: 0, Bitty: 0,
+};
+
+answers.forEach((answer, index) => {
+  const questionNumber = index + 1;
+  const spirits = spiritMapping[questionNumber][answer];
+  spirits.forEach(spirit => {
+    spiritScores[spirit]++;
+  });
+});
+
+const topSpirit = Object.entries(spiritScores).sort((a, b) => b[1] - a[1])[0][0];
