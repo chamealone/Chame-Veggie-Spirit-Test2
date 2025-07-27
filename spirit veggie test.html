@@ -1,11 +1,21 @@
 <!DOCTYPE html>
+<html lang="id">
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>What's Your Spirit Veggie Test | by Chamealone</title>
   <link href="https://fonts.googleapis.com/css2?family=Fredoka&family=Poppins&display=swap" rel="stylesheet">
   <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+    body { background-color: #043f3a; color: #fefefe; overflow-x: hidden; }
+    .container { max-width: 600px; margin: auto; padding: 2rem; }
+    h1 { font-size: 2rem; text-align: center; font-family: 'Fredoka', sans-serif; }
+    .byline { text-align: center; font-style: italic; font-size: 0.8rem; margin-bottom: 2rem; }
+    .language-select button,
+    .next-btn, .option-btn {
+      margin: 0.5rem auto;
     * {
       margin: 0;
       padding: 0;
@@ -46,8 +56,12 @@
       background-color: #066f61;
       color: #fff;
       cursor: pointer;
+      display: block;
       transition: background-color 0.3s ease;
     }
+    .language-select button:hover,
+    .next-btn:hover, .option-btn:hover { background-color: #04b49c; }
+    .input-group { margin: 1rem 0; }
 
     .language-select button:hover {
       background-color: #04b49c;
@@ -64,6 +78,11 @@
       border-radius: 10px;
       margin-top: 0.5rem;
     }
+    .section { display: none; }
+    .section.active { display: block; }
+    .fade-in { opacity: 0; animation: fadeIn 2s forwards; }
+    @keyframes fadeIn { to { opacity: 1; } }
+    .quiz-options { display: flex; flex-direction: column; gap: 1rem; }
 
     .next-btn, .option-btn {
       margin-top: 1.5rem;
@@ -124,69 +143,34 @@
     .progress-bar {
       height: 100%;
       background-color: #00ccb0;
-      width: 0%;
-      transition: width 0.3s ease;
-    }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <!-- Landing Page -->
-    <section id="landing" class="section active">
-      <h1>What's Your Spirit Veggie Test</h1>
-      <div class="byline">by Chamealone</div>
-      <div class="language-select">
-        <button onclick="selectLang('id')">🇮🇩 Indonesia</button>
-        <button onclick="selectLang('en')">🇺🇸 English</button>
-      </div>
-      <div class="input-group">
-        <label id="nameLabel">Nama:</label>
-        <input type="text" id="nameInput" placeholder="Masukkan nama...">
-      </div>
-      <div class="input-group">
-        <label id="igLabel">Instagram (opsional):</label>
-        <input type="text" id="igInput" placeholder="@namamu">
-      </div>
+@@ -74,49 +150,64 @@
       <button class="next-btn" onclick="goToProlog1()">Next</button>
     </section>
 
-   <!-- Prolog 1: Kejadian Jatuh -->
-<section id="prolog1" class="section">
-  <p class="fade-in">Sore itu kamu jalan santai di taman. Tapi waktu menginjak tumpukan daun, dirimu terjatuh. Seakan-akan bumi bilang, "Bye!"</p>
-</section>
+    <!-- Prolog 1 -->
+    <!-- Prolog 1: Kejadian Jatuh -->
+    <section id="prolog1" class="section">
+      <p class="fade-in">Sore itu kamu jalan santai di taman. Tapi waktu menginjak tumpukan daun, dirimu terjatuh. Seakan-akan bumi bilang, "Bye!"</p>
+    </section>
 
-<!-- Prolog 2: Lorong & Chame -->
-<section id="prolog2" class="section">
-  <p class="fade-in">Pas bangun, kamu udah di sebuah lorong. Dingin. Sunyi. Ada makhluk hijau duduk di ujung. Ekornya segitiga.</p>
-  <p class="fade-in" style="margin-top:1rem">“Hai, aku Chame. Aku juga tersesat, mau cari jalan pulang bareng gak?”</p>
-  <div class="quiz-options">
-    <button class="option-btn" data-spirits="Bitty,Gingeer" onclick="chooseProlog2(this)">Ayo!</button>
-    <button class="option-btn" data-spirits="Banion,Onyun" onclick="chooseProlog2(this)">Hah?</button>
-    <button class="option-btn" data-spirits="Gowlic,Mubii" onclick="chooseProlog2(this)">Males…</button>
-    <button class="option-btn" data-spirits="Potatoad,Mubii" onclick="chooseProlog2(this)">Coba dulu aja deh.</button>
-    <button class="option-btn" data-spirits="Kroot,Gowlic" onclick="chooseProlog2(this)">Kenapa kamu bantuin aku?</button>
-  </div>
-</section>
-
-<!-- Prolog 1 (EN): The Fall Incident -->
-<section en="prolog1-en" class="section" style="display:none">
-  <p class="fade-in">That afternoon, you were walking leisurely in the park. But as you stepped on a pile of leaves, you suddenly fell through. As if the earth said, “Bye!”</p>
-</section>
-
-<!-- Prolog 2 (EN): The Corridor & Chame -->
-<section en="prolog2-en" class="section" style="display:none">
-  <p class="fade-in">When you wake up, you're already in a corridor. Cold. Silent. A green creature is sitting at the far end. Its tail is shaped like a triangle.</p>
-  <p class="fade-in" style="margin-top:1rem">“Hi, I'm Chame. I got lost too. Wanna find the way out together?”</p>
-  <div class="quiz-options">
-    <button class="option-btn" data-spirits="Bitty,Gingeer" onclick="chooseProlog2(this)">Let’s go!</button>
-    <button class="option-btn" data-spirits="Banion,Onyun" onclick="chooseProlog2(this)">Huh?</button>
-    <button class="option-btn" data-spirits="Gowlic,Mubii" onclick="chooseProlog2(this)">Nah, pass...</button>
-    <button class="option-btn" data-spirits="Potatoad,Mubii" onclick="chooseProlog2(this)">Might as well try.</button>
-    <button class="option-btn" data-spirits="Kroot,Gowlic" onclick="chooseProlog2(this)">Why are you helping me?</button>
-  </div>
-</section>
-
-
+    <!-- Prolog 2 -->
+    <!-- Prolog 2: Lorong & Chame -->
+    <section id="prolog2" class="section">
+      <p class="fade-in">Pas bangun, kamu udah di sebuah lorong. Dingin. Sunyi. Ada makhluk hijau duduk di ujung. Ekornya segitiga.</p>
+      <p class="fade-in" style="margin-top:1rem">“Hai, aku Chame. Aku juga tersesat, mau cari jalan pulang bareng gak?”</p>
+      <div class="quiz-options">
+        <button class="option-btn" data-spirits="Bitty,Gingeer" onclick="chooseProlog2(this)">Ayo!</button>
+        <button class="option-btn" data-spirits="Banion,Onyun" onclick="chooseProlog2(this)">Hah?</button>
+        <button class="option-btn" data-spirits="Gowlic,Mubii" onclick="chooseProlog2(this)">Males…</button>
+        <button class="option-btn" data-spirits="Potatoad,Mubii" onclick="chooseProlog2(this)">Coba dulu aja deh.</button>
+        <button class="option-btn" data-spirits="Kroot,Gowlic" onclick="chooseProlog2(this)">Kenapa kamu bantuin aku?</button>
+  <button class="option-btn" data-spirits="Bitty,Gingeer" onclick="chooseProlog2(this)">Ayo!</button>
+  <button class="option-btn" data-spirits="Banion,Onyun" onclick="chooseProlog2(this)">Hah?</button>
+  <button class="option-btn" data-spirits="Gowlic,Mubii" onclick="chooseProlog2(this)">Males…</button>
+  <button class="option-btn" data-spirits="Potatoad,Mubii" onclick="chooseProlog2(this)">Coba dulu aja deh.</button>
+  <button class="option-btn" data-spirits="Kroot,Gowlic" onclick="chooseProlog2(this)">Kenapa kamu bantuin aku?</button>
+</div>
+<script>
   function chooseProlog2(button) {
     const selectedSpirits = button.getAttribute("spirits").split(",");
 
@@ -217,37 +201,48 @@
       </div>
     </section>
 
+    <!-- Quiz Section -->
     <!-- Quiz Section Placeholder -->
     <section id="quiz" class="section">
+      <div id="quiz-content" class="fade-in">
+        <div id="question-container"></div>
+        <div class="quiz-options" id="options-container"></div>
+      </div>
       <p class="fade-in">[Quiz Placeholder]</p>
       <div class="progress-container">
         <div class="progress-bar" id="progressBar"></div>
       </div>
     </section>
+
+    <!-- Result Section Placeholder -->
+    <section id="result" class="section">
+      <h2>Hasilmu akan muncul di sini 🎉</h2>
+      <p id="resultText">Coming soon...</p>
+    </section>
   </div>
 
   <script>
     let lang = 'id';
+    let currentQuestion = 0;
+    const spiritScores = {
+      Kroot: 0, Banion: 0, Potatoad: 0, Mubii: 0,
+      Onyun: 0, Bitty: 0, Gingeer: 0, Gowlic: 0
+    };
 
     function selectLang(selected) {
       lang = selected;
-      document.getElementById('nameLabel').textContent = lang === 'id' ? 'Nama:' : 'Name:';
-      document.getElementById('igLabel').textContent = lang === 'id' ? 'Instagram (opsional):' : 'Instagram (optional):';
-    }
-
+@@ -127,8 +218,9 @@
     function goToProlog1() {
       showSection('prolog1');
       setTimeout(() => {
+        document.getElementById('prolog1').style.filter = 'blur(10px)';
         document.getElementById('prolog1').classList.add('blur-scroll');
         document.getElementById('prolog1').style.transform = 'translateY(500px)';
         document.getElementById('prolog1').style.filter = 'blur(10px)';
         setTimeout(() => {
           showSection('prolog2');
         }, 2000);
-      }, 2500);
-    }
-
-    function showSection(id) {
+@@ -139,124 +231,83 @@
       document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
       document.getElementById(id).classList.add('active');
     }
@@ -264,6 +259,60 @@
   </div>
 </section>
 
+    function chooseProlog2(button) {
+      const selectedSpirits = button.getAttribute("data-spirits").split(",");
+      selectedSpirits.forEach(spirit => {
+        if (spiritScores[spirit] !== undefined) {
+          spiritScores[spirit]++;
+        }
+      });
+      showSection('quiz');
+      loadQuestion(currentQuestion);
+    }
+
+    function loadQuestion(index) {
+      if (index >= quizData.length) {
+        showResult();
+        return;
+      }
+
+      const questionData = quizData[index];
+      const questionText = lang === 'id' ? questionData.question.id : questionData.question.en;
+      const questionContainer = document.getElementById('question-container');
+      const optionsContainer = document.getElementById('options-container');
+
+      questionContainer.innerHTML = `<p>${questionText}</p>`;
+      optionsContainer.innerHTML = '';
+
+      questionData.options.forEach(option => {
+        const btn = document.createElement('button');
+        btn.classList.add('option-btn');
+        btn.textContent = lang === 'id' ? option.text.id : option.text.en;
+        btn.onclick = () => {
+          option.spirits.forEach(spirit => {
+            if (spiritScores[spirit] !== undefined) {
+              spiritScores[spirit]++;
+            }
+          });
+          currentQuestion++;
+          updateProgress();
+          loadQuestion(currentQuestion);
+        };
+        optionsContainer.appendChild(btn);
+      });
+    }
+
+    function updateProgress() {
+      const progress = ((currentQuestion) / quizData.length) * 100;
+      document.getElementById("progressBar").style.width = `${progress}%`;
+    }
+
+    function showResult() {
+      showSection('result');
+      const maxScore = Math.max(...Object.values(spiritScores));
+      const topSpirits = Object.keys(spiritScores).filter(spirit => spiritScores[spirit] === maxScore);
+      document.getElementById('resultText').innerText = `Spirit kamu: ${topSpirits.join(' & ')}`;
+    }
 <script>
 const quizData = [
   {
@@ -331,56 +380,3 @@ const quizData = [
       { text: { id: "Duh... malu... tapi pengin peluk kertasnya.", en: "Ugh… it’s embarrassing… but I wanna hug the paper." }, spirits: ["Onyun", "Bitty"] }
     ]
   },
-  {
-    question: {
-      id: "6. Kamu nemu rak mainan tua.\nAda satu boneka rusak duduk sendirian.\nKelihatannya... nunggu kamu.",
-      en: "6. You find an old toy shelf.\nOne broken doll sits alone.\nIt looks like... it's waiting for you."
-    },
-    options: [
-      { text: { id: "Jangan-jangan ini aku... dulu.", en: "Maybe… that used to be me." }, spirits: ["Banion", "Mubii"] },
-      { text: { id: "Kasihan banget... ayo pulang bareng aku.", en: "Poor thing… come home with me." }, spirits: ["Bitty", "Gingeer"] },
-      { text: { id: "Dia nggak perlu diselamatin. Dia cuma butuh didengerin.", en: "It doesn’t need saving. Just needs to be heard." }, spirits: ["Mubii", "Kroot"] },
-      { text: { id: "Boneka juga bisa trauma ya?", en: "Dolls can have trauma too, huh?" }, spirits: ["Onyun", "Banion"] },
-      { text: { id: "Ya udah. Duduk aja bareng. Gak usah banyak omong.", en: "Let’s just sit here. No need for words." }, spirits: ["Potatoad", "Gowlic"] }
-    ]
-  },
-  {
-    question: {
-      id: "7. Lorong bercabang dua.\nSatu terang dan riuh suara. Satu lagi gelap dan sepi.\nChame cuma ngangguk, biar kamu yang pilih.",
-      en: "7. The corridor splits into two.\nOne is bright and noisy. The other is dark and quiet.\nChame just nods, letting you choose."
-    },
-    options: [
-      { text: { id: "Terang terlalu berisik. Aku ambil yang sepi.", en: "Too loud over there. I’ll take the quiet path." }, spirits: ["Mubii", "Gowlic"] },
-      { text: { id: "Aku masuk yang terang. Biar gak ngerasa sendiri.", en: "I’ll go toward the light. So I don’t feel alone." }, spirits: ["Bitty", "Onyun"] },
-      { text: { id: "Gelap? Ya udah. Lebih jujur daripada basa-basi.", en: "Dark? So be it. More honest than small talk." }, spirits: ["Kroot", "Potatoad"] },
-      { text: { id: "Yang mana aja... asal ada aku-nya di ujung.", en: "Whichever way… as long as I find myself at the end." }, spirits: ["Gingeer", "Mubii"] },
-      { text: { id: "Kalau boleh, aku bikin jalan ketiga.", en: "If I could, I’d make a third path." }, spirits: ["Onyun", "Banion"] }
-    ]
-  },
-  {
-    question: {
-      id: "8. Di ujung lorong, ada kotak kecil.\nTulisan di atasnya:\n“Tinggalkan satu hal yang paling berat kamu bawa.”",
-      en: "8. At the end of the corridor, there's a small box.\nA sign reads:\n“Leave behind one thing you carry that’s too heavy.”"
-    },
-    options: [
-      { text: { id: "Overthinking.", en: "Overthinking." }, spirits: ["Kroot", "Banion"] },
-      { text: { id: "Takut ditinggalin.", en: "Fear of abandonment." }, spirits: ["Bitty", "Onyun"] },
-      { text: { id: "Perasaan bersalah yang aku nggak ngerti.", en: "That weird guilt I never understood." }, spirits: ["Mubii", "Gingeer"] },
-      { text: { id: "Perfeksionisme biar bisa diterima.", en: "Perfectionism just to feel accepted." }, spirits: ["Gowlic", "Gingeer"] },
-      { text: { id: "Ekspektasi orang yang gak pernah cocok sama aku.", en: "Other people’s expectations that never fit me." }, spirits: ["Potatoad", "Kroot"] }
-    ]
-  },
-  {
-    question: {
-      id: "9. Chame menatap kamu:\n“Jadi... kamu kira siapa dirimu yang sebenarnya?”",
-      en: "9. Chame looks at you:\n“So… who do you think you really are?”"
-    },
-    options: [
-      { text: { id: "Yang jagain semua orang, tapi gak bisa jaga diri sendiri.", en: "The one who protects everyone, but can't protect themselves." }, spirits: ["Kroot", "Banion"] },
-      { text: { id: "Yang berisik, tapi cuma pengin didengerin.", en: "The loud one who just wants to be heard." }, spirits: ["Onyun", "Bitty"] },
-      { text: { id: "Yang ngerti orang, tapi belum ngerti diri sendiri.", en: "Understands others, but hasn’t figured themselves out." }, spirits: ["Gingeer", "Mubii"] },
-      { text: { id: "Yang sok kuat, padahal pengin dimengerti.", en: "Pretends to be strong, just wants to be understood." }, spirits: ["Gowlic", "Potatoad"] },
-      { text: { id: "Yang luka, tapi tetap main dan jatuh cinta.", en: "Wounded, but still plays and falls in love." }, spirits: ["Banion", "Bitty"] }
-    ]
-  }
-];
