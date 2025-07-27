@@ -1,301 +1,337 @@
-import React, { useState } from 'react';
-
-export default function SpiritVeggieTest() {
-  const [language, setLanguage] = useState('id');
-  const [step, setStep] = useState('intro');
-  const [name, setName] = useState('');
-  const [ig, setIg] = useState('');
-  const [answers, setAnswers] = useState([]);
-
-  const isIndo = language === 'id';
-
-  const handleNext = () => {
-    if (step === 'intro') {
-      setStep('prologue');
-    } else if (step === 'prologue') {
-      setStep('quiz1');
-    } else if (step.startsWith('quiz') && parseInt(step.replace('quiz', '')) < 8) {
-      const nextStep = `quiz${parseInt(step.replace('quiz', '')) + 1}`;
-      setStep(nextStep);
-    } else if (step === 'quiz8') {
-      alert('Quiz selesai! Menentukan spirit kamu...');
-      // TODO: logic menentukan hasil akhir
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>What's Your Spirit Veggie Test | by Chamealone</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka&family=Poppins&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
     }
-  };
 
-  const handleAnswer = (choice) => {
-    setAnswers([...answers, choice]);
-    handleNext();
-  };
+    body {
+      background-color: #043f3a;
+      color: #fefefe;
+      overflow-x: hidden;
+    }
 
-  const renderQuestion = (question, options) => (
-    <div className="w-full max-w-md space-y-4 text-left">
-      <p className="font-semibold text-lg">{question}</p>
-      <div className="space-y-2">
-        {options.map((opt, idx) => (
-          <button
-            key={idx}
-            onClick={() => handleAnswer(opt[0])}
-            className="w-full text-left border border-gray-300 px-4 py-2 rounded hover:bg-gray-100"
-          >
-            <strong>{opt[0]}</strong>. {opt[1]}
-          </button>
-        ))}
+    .container {
+      max-width: 600px;
+      margin: auto;
+      padding: 2rem;
+    }
+
+    h1 {
+      font-size: 2rem;
+      text-align: center;
+      font-family: 'Fredoka', sans-serif;
+    }
+
+    .byline {
+      text-align: center;
+      font-style: italic;
+      font-size: 0.8rem;
+      margin-bottom: 2rem;
+    }
+
+    .language-select button {
+      margin: 0.5rem;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 20px;
+      background-color: #066f61;
+      color: #fff;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .language-select button:hover {
+      background-color: #04b49c;
+    }
+
+    .input-group {
+      margin: 1rem 0;
+    }
+
+    input {
+      width: 100%;
+      padding: 0.5rem;
+      border: none;
+      border-radius: 10px;
+      margin-top: 0.5rem;
+    }
+
+    .next-btn, .option-btn {
+      margin-top: 1.5rem;
+      background-color: #00a392;
+      border: none;
+      padding: 0.7rem 1.5rem;
+      border-radius: 25px;
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      transition: background-color 0.3s ease;
+    }
+
+    .next-btn:hover, .option-btn:hover {
+      background-color: #02ccb5;
+    }
+
+    .section {
+      display: none;
+    }
+
+    .section.active {
+      display: block;
+    }
+
+    .blur-scroll {
+      transition: filter 1.5s ease, transform 2s ease;
+    }
+
+    .fade-in {
+      opacity: 0;
+      animation: fadeIn 2s forwards;
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+
+    .quiz-options {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .progress-container {
+      height: 10px;
+      background-color: #0a4f48;
+      border-radius: 5px;
+      overflow: hidden;
+      margin-top: 2rem;
+    }
+
+    .progress-bar {
+      height: 100%;
+      background-color: #00ccb0;
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Landing Page -->
+    <section id="landing" class="section active">
+      <h1>What's Your Spirit Veggie Test</h1>
+      <div class="byline">by Chamealone</div>
+      <div class="language-select">
+        <button onclick="selectLang('id')">🇮🇩 Indonesia</button>
+        <button onclick="selectLang('en')">🇺🇸 English</button>
       </div>
-    </div>
-  );
+      <div class="input-group">
+        <label id="nameLabel">Nama:</label>
+        <input type="text" id="nameInput" placeholder="Masukkan nama...">
+      </div>
+      <div class="input-group">
+        <label id="igLabel">Instagram (opsional):</label>
+        <input type="text" id="igInput" placeholder="@namamu">
+      </div>
+      <button class="next-btn" onclick="goToProlog1()">Next</button>
+    </section>
 
-  return (
-    <div className="min-h-screen bg-[#f3f3f0] text-gray-800 p-4 flex flex-col items-center justify-center">
-      {step === 'intro' && (
-        <div className="w-full max-w-md space-y-4 text-center">
-          <h1 className="text-2xl font-bold">What's Your Spirit Veggie Test</h1>
-          <p className="text-sm">by Chamealone</p>
-          <p>{isIndo ? 'Temukan spirit apa yang sebenarnya kamu butuhkan saat ini.' : 'Discover the spirit you truly need right now.'}</p>
+    <!-- Prolog 1: Kejadian Jatuh -->
+    <section id="prolog1" class="section">
+      <p class="fade-in">Sore itu kamu jalan santai di taman. Tapi waktu menginjak tumpukan daun, dirimu terjatuh. Seakan-akan bumi bilang, "Bye!"</p>
+    </section>
 
-          <input
-            type="text"
-            placeholder={isIndo ? 'Masukkan namamu' : 'Enter your name'}
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            className="w-full border rounded px-3 py-2"
-          />
-          <input
-            type="text"
-            placeholder={isIndo ? 'Masukkan IG kamu' : 'Enter your Instagram'}
-            value={ig}
-            onChange={(e) => setIg(e.target.value)}
-            className="w-full border rounded px-3 py-2"
-          />
+    <!-- Prolog 2: Lorong & Chame -->
+    <section id="prolog2" class="section">
+      <p class="fade-in">Pas bangun, kamu udah di sebuah lorong. Dingin. Sunyi. Ada makhluk hijau duduk di ujung. Ekornya segitiga.</p>
+      <p class="fade-in" style="margin-top:1rem">“Hai, aku Chame. Aku juga tersesat, mau cari jalan pulang bareng gak?”</p>
+      <div class="quiz-options">
+        <button class="option-btn">Ayo!</button>
+        <button class="option-btn">Hah?</button>
+        <button class="option-btn">Males…</button>
+        <button class="option-btn">Coba dulu aja deh.</button>
+        <button class="option-btn">Kenapa kamu bantuin aku?</button>
+      </div>
+    </section>
 
-          <div className="flex justify-center gap-2">
-            <button onClick={() => setLanguage('id')} className={`px-4 py-2 rounded ${isIndo ? 'bg-green-400 text-white' : 'bg-white border'}`}>
-              Indo
-            </button>
-            <button onClick={() => setLanguage('en')} className={`px-4 py-2 rounded ${!isIndo ? 'bg-green-400 text-white' : 'bg-white border'}`}>
-              English
-            </button>
-          </div>
+    <!-- Quiz Section Placeholder -->
+    <section id="quiz" class="section">
+      <p class="fade-in">[Quiz Placeholder]</p>
+      <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+      </div>
+    </section>
+  </div>
 
-          <button
-            onClick={handleNext}
-            className="bg-black text-white px-6 py-2 rounded hover:bg-gray-800"
-          >
-            {isIndo ? 'Mulai' : 'Start'}
-          </button>
-        </div>
-      )}
+  <script>
+    let lang = 'id';
 
-      {step === 'prologue' && (
-        <div className="w-full max-w-md space-y-4 text-left">
-          {isIndo ? (
-            <>
-              <p>Sore itu kamu jalan santai.</p>
-              <p>Langit murung.</p>
-              <p>Nginjek daun.</p>
-              <p>Jeblos.</p>
-              <p className="italic">(animasi page jatuh)</p>
-              <p>Pas bangun, kamu udah di lorong batu.</p>
-              <p>Dingin. Sunyi.</p>
-              <p>Ada makhluk hijau duduk di ujung.</p>
-              <p>Ekornya segitiga.</p>
-              <p className="font-semibold mt-4">“Hai, aku Chame. Aku juga tersesat, mau cari jalan pulang bareng gak?”</p>
-            </>
-          ) : (
-            <>
-              <p>That afternoon, you were out for a quiet walk.</p>
-              <p>The sky was gloomy.</p>
-              <p>You stepped on a leaf.</p>
-              <p>Crack. Fell.</p>
-              <p className="italic">(falling page animation)</p>
-              <p>When you came to, you were in a stone hallway.</p>
-              <p>Cold. Silent.</p>
-              <p>A green creature sat at the end.</p>
-              <p>Its tail was triangular.</p>
-              <p className="font-semibold mt-4">“Hi, I’m Chame. I’m lost too. Wanna find a way home together?”</p>
-            </>
-          )}
+    function selectLang(selected) {
+      lang = selected;
+      document.getElementById('nameLabel').textContent = lang === 'id' ? 'Nama:' : 'Name:';
+      document.getElementById('igLabel').textContent = lang === 'id' ? 'Instagram (opsional):' : 'Instagram (optional):';
+    }
 
-          <button
-            onClick={handleNext}
-            className="mt-6 bg-black text-white px-6 py-2 rounded hover:bg-gray-800 w-full"
-          >
-            {isIndo ? 'Lanjut ke kuis' : 'Continue to quiz'}
-          </button>
-        </div>
-      )}
+    function goToProlog1() {
+      showSection('prolog1');
+      setTimeout(() => {
+        document.getElementById('prolog1').classList.add('blur-scroll');
+        document.getElementById('prolog1').style.transform = 'translateY(500px)';
+        document.getElementById('prolog1').style.filter = 'blur(10px)';
+        setTimeout(() => {
+          showSection('prolog2');
+        }, 2000);
+      }, 2500);
+    }
 
-      {step.startsWith('quiz') && (
-        <>
-          {step === 'quiz1' && renderQuestion(
-            '❶ Portal yang kamu lewati… hilang. Gak ada jalan balik. Cuma lorong dan langkahmu sendiri. Kamu ngerasa…',
-            [
-              ['A', '“Mungkin ini salahku, kayak biasa.”'],
-              ['B', '“Kayaknya otakku yang bikin semua ini.”'],
-              ['C', '“Gak yakin ada yang peduli juga.”'],
-              ['D', '“Gak apa-apa. Paling nggak sepi-sepi amat.”'],
-              ['E', '“Mungkin ini cara semesta ngajak ngobrol.”']
-            ]
-          )}
+    function showSection(id) {
+      document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+    }
+  </script>
+</body>
+</html>
+<section id="quiz" class="section">
+  <div id="quiz-content" class="fade-in">
+    <div id="question-container"></div>
+    <div class="quiz-options" id="options-container"></div>
+  </div>
+  <div class="progress-container">
+    <div class="progress-bar" id="progressBar"></div>
+  </div>
+</section>
 
-          {step === 'quiz2' && renderQuestion(
-            '❷ Di depanmu, batu besar nutupin jalan. Chame nunjuk ke lima tombol aneh di tembok. Kamu pencet yang mana?',
-            [
-              ['A', 'Yang paling kusam. Kayak sering dilupain.'],
-              ['B', 'Yang warna-warni. Kayak permen.'],
-              ['C', 'Yang hangat, tapi ada retaknya.'],
-              ['D', 'Yang logam. Keras dan rapi banget.'],
-              ['E', 'Yang kayu. Penuh coretan kecil.']
-            ]
-          )}
-
-          {step === 'quiz3' && renderQuestion(
-            '❸ Kamu masuk ke lorong. Gak jelas arahnya, tapi kaki kamu terus jalan. Langkahmu gimana?',
-            [
-              ['A', 'Pelan-pelan. Rasain setiap langkah.'],
-              ['B', 'Teriak aja, biar rame.'],
-              ['C', 'Cepetin aja. Biar cepet selesai.'],
-              ['D', 'Pegang lengan Chame, diem-diem.'],
-              ['E', 'Berhenti sebentar. Dengerin napas sendiri.']
-            ]
-          )}
-
-          {step === 'quiz4' && renderQuestion(
-            '❹ Di pojok lorong, ada cermin pecah. Salah satu pantulannya… kamu. Kecil. Lagi nangis. Kamu...?',
-            [
-              ['A', 'Langsung peluk. Gak usah mikir.'],
-              ['B', 'Air mataku ikut jatuh juga.'],
-              ['C', '“Ya ampun, ini gue banget.”'],
-              ['D', 'Liatin aja lama-lama. Diam.'],
-              ['E', 'Tutup mata. Terlalu banyak rasanya.']
-            ]
-          )}
-
-          {step === 'quiz5' && renderQuestion(
-            '❺ Ada kertas jatuh dari langit-langit. Tulisannya kayak tulisanmu waktu kecil: "Maaf ya, aku belum cukup baik." Reaksimu?',
-            [
-              ['A', '“Kamu cukup, kok. Sini aku temenin.”'],
-              ['B', '“Sakit sih. Tapi aku juga pernah mikir gitu.”'],
-              ['C', '“Aku gak tahu harus jawab apa.”'],
-              ['D', '“Kenapa sih kita selalu nuntut diri sendiri?”'],
-              ['E', '“Aku cuma pengen duduk bareng dia.”']
-            ]
-          )}
-
-          {step === 'quiz6' && renderQuestion(
-            '❻ Kamu nemu rak mainan lama. Ada satu boneka rusak. Tapi dia masih duduk di sana. Kamu...?',
-            [
-              ['A', 'Ajak main. Biar dia gak ngerasa sendirian.'],
-              ['B', 'Perbaiki pelan-pelan. Kalau bisa.'],
-              ['C', 'Bawa pulang. Mungkin dia butuh rumah baru.'],
-              ['D', 'Tanya pelan, “Siapa yang ninggalin kamu?”'],
-              ['E', 'Duduk di sebelahnya. Diam-diam aja.']
-            ]
-          )}
-
-          {step === 'quiz7' && renderQuestion(
-            '❼ Lorong bercabang dua. Satu terang, penuh suara. Satunya gelap, sepi. Pilih yang mana?',
-            [
-              ['A', 'Gelap. Tapi tenang.'],
-              ['B', 'Terang. Tapi rame banget.'],
-              ['C', 'Diam dulu. Gak mau milih buru-buru.'],
-              ['D', 'Gelap. Siapa tahu ada sesuatu di sana.'],
-              ['E', 'Terang aja deh. Yang penting gak sendiri.']
-            ]
-          )}
-
-          {step === 'quiz8' && renderQuestion(
-            '❽ Di ujung lorong, pintu terakhir nunggu. Bisa kebuka… kalau kamu jujur. Kalimat mana yang paling kamu butuh sekarang?',
-            [
-              ['A', '“Aku tetap berharga walau gak sempurna.”'],
-              ['B', '“Aku boleh ngerasa semua hal.”'],
-              ['C', '“Aku butuh istirahat, dan itu sah.”'],
-              ['D', '“Aku boleh bilang enggak.”'],
-              ['E', '“Aku gak sendirian.”']
-            ]
-          )}
-        </>
-      )}
-    </div>
-  );
-}
-export const questionMappings = [
+<script>
+const quizData = [
   {
-    question: 1,
-    A: ["Kroot", "Gowlic"],
-    B: ["Banion", "Gingeer"],
-    C: ["Mubii", "Potatoad"],
-    D: ["Onyun", "Bitty"],
-    E: ["Bitty", "Gingeer"],
+    question: {
+      id: "1. Portal di belakangmu hilang. Lorong terus memanjang. Gak ada jalan balik.\nLangkahmu pelan-pelan makin jauh.\nRasanya...",
+      en: "1. The portal behind you disappears. The corridor stretches endlessly. No turning back now.\nYour steps go further and further.\nYou feel..."
+    },
+    options: [
+      { text: { id: "Sial. Udah gak bisa kabur lagi, ya.", en: "Damn. No escape now, huh." }, spirits: ["Kroot", "Gowlic"] },
+      { text: { id: "Gak papa. Toh aku emang sering sendiri.", en: "It's okay. I'm used to being alone." }, spirits: ["Mubii", "Potatoad"] },
+      { text: { id: "Takut sih... tapi penasaran juga.", en: "Scared… but also curious." }, spirits: ["Bitty", "Onyun"] },
+      { text: { id: "Aneh. Tapi kayak... aku emang harus lewat sini.", en: "Weird. But I feel like… I’m meant to walk this path." }, spirits: ["Gingeer", "Mubii"] },
+      { text: { id: "Serem, tapi... jangan ditunjukin ke Chame. Gengsi.", en: "Scary, but… I won’t show it to Chame. Pride, y’know." }, spirits: ["Banion", "Kroot"] }
+    ]
   },
   {
-    question: 2,
-    A: ["Kroot", "Banion"],
-    B: ["Bitty", "Onyun"],
-    C: ["Mubii", "Potatoad"],
-    D: ["Gowlic", "Gingeer"],
-    E: ["Banion", "Potatoad"],
+    question: {
+      id: "2. Di depan, batu besar nutup jalan.\nChame nunjuk lima ukiran aneh di dinding.\n“Tekan salah satu, siapa tahu geser batunya,” katanya.",
+      en: "2. A giant rock blocks your way.\nChame points at five strange carvings on the wall.\n“Try pressing one. Maybe the rock will move,” they say."
+    },
+    options: [
+      { text: { id: "Yang bentuknya mata. Kayaknya dia bisa liat jalan keluar.", en: "The eye symbol. Feels like it can see the way out." }, spirits: ["Gowlic", "Gingeer"] },
+      { text: { id: "Yang kayak patah hati. Karena aku relate.", en: "The broken heart. I relate to that." }, spirits: ["Banion", "Mubii"] },
+      { text: { id: "Yang penuh ukiran bunga. Estetik dong.", en: "The one full of flower carvings. Aesthetics first." }, spirits: ["Onyun", "Bitty"] },
+      { text: { id: "Yang paling biasa aja. Gak mau drama.", en: "The plainest one. I don't want drama." }, spirits: ["Potatoad", "Mubii"] },
+      { text: { id: "Yang paling mencolok. Kalau jebakan, ya udah.", en: "The flashiest one. If it's a trap, so be it." }, spirits: ["Kroot", "Banion"] }
+    ]
   },
   {
-    question: 3,
-    A: ["Gingeer", "Mubii"],
-    B: ["Onyun", "Bitty"],
-    C: ["Kroot", "Banion"],
-    D: ["Mubii", "Potatoad"],
-    E: ["Potatoad", "Gingeer"],
+    question: {
+      id: "3. Lorongnya makin gelap. Tapi kakimu tetap jalan.\nLangkahmu berubah jadi refleks.\nKamu sadar...",
+      en: "3. The corridor gets darker. But your feet keep moving.\nYou start walking on reflex.\nYou realize..."
+    },
+    options: [
+      { text: { id: "Aku gak tahu ini ke mana. Tapi tubuhku kayak udah biasa.", en: "I don't know where this leads. But my body acts like it's been here before." }, spirits: ["Mubii", "Gingeer"] },
+      { text: { id: "Aku takut... tapi makin dalam makin tenang.", en: "I’m scared… but the deeper I go, the calmer I feel." }, spirits: ["Bitty", "Banion"] },
+      { text: { id: "Gue udah capek mikir. Lanjut aja.", en: "I’m done overthinking. Let’s just keep going." }, spirits: ["Potatoad", "Kroot"] },
+      { text: { id: "Jangan-jangan ini semua cuma mimpi. Aneh banget!", en: "What if this is all a dream? So weird!" }, spirits: ["Onyun", "Bitty"] },
+      { text: { id: "Gue gak nyetir, tapi gue juga gak nyerah.", en: "I’m not in control, but I’m not giving up either." }, spirits: ["Kroot", "Gowlic"] }
+    ]
   },
   {
-    question: 4,
-    A: ["Mubii", "Kroot"],
-    B: ["Banion", "Potatoad"],
-    C: ["Bitty", "Onyun"],
-    D: ["Gingeer", "Gowlic"],
-    E: ["Gowlic", "Potatoad"],
+    question: {
+      id: "4. Di pojok lorong, kamu lihat cermin pecah.\nSalah satu pantulannya… versi kecil dirimu. Lagi duduk. Nangis.",
+      en: "4. At the corner of the corridor, you see a cracked mirror.\nOne reflection shows a tiny version of you, sitting and crying."
+    },
+    options: [
+      { text: { id: "Aku... masih nyimpen rasa itu ya.", en: "I guess… I’m still holding on to that feeling." }, spirits: ["Banion", "Mubii"] },
+      { text: { id: "Kamu capek ya? Sini peluk.", en: "You're tired, huh? Come here, let me hug you." }, spirits: ["Gingeer", "Bitty"] },
+      { text: { id: "Gue nggak bisa nangis di sini. Tapi gue dengerin.", en: "I can’t cry right now. But I hear you." }, spirits: ["Kroot", "Gowlic"] },
+      { text: { id: "Jujur aja... itu sedih tapi lucu juga.", en: "Honestly… it’s sad but also kinda funny." }, spirits: ["Onyun", "Bitty"] },
+      { text: { id: "Gak penting. Masa lalu tuh udah mati.", en: "Doesn’t matter. The past is dead." }, spirits: ["Gowlic", "Potatoad"] }
+    ]
   },
   {
-    question: 5,
-    A: ["Kroot", "Mubii"],
-    B: ["Mubii", "Banion"],
-    C: ["Bitty", "Gowlic"],
-    D: ["Banion", "Gowlic"],
-    E: ["Potatoad", "Gingeer"],
+    question: {
+      id: "5. Seekor burung lewat, menjatuhkan secarik kertas.\nTulisannya kayak tulisanmu waktu kecil:\n“Maaf ya, aku belum cukup baik.”",
+      en: "5. A bird flies by and drops a small paper.\nThe handwriting looks like yours as a kid:\n“Sorry, I'm still not good enough.”"
+    },
+    options: [
+      { text: { id: "Kenapa masih sedih banget bacanya ya…", en: "Why does reading that still make me sad…?" }, spirits: ["Banion", "Mubii"] },
+      { text: { id: "Nggak kok. Kamu udah cukup. Dari dulu.", en: "No, you were always enough. Even back then." }, spirits: ["Gingeer", "Bitty"] },
+      { text: { id: "Masa kecil tuh gak bisa dibenerin, bisa dipeluk doang.", en: "You can’t fix your childhood. You can only embrace it." }, spirits: ["Mubii", "Kroot"] },
+      { text: { id: "Mungkin emang gak cukup. Tapi gue tetep jalan.", en: "Maybe it wasn't enough. But I kept going." }, spirits: ["Kroot", "Gowlic"] },
+      { text: { id: "Duh... malu... tapi pengin peluk kertasnya.", en: "Ugh… it’s embarrassing… but I wanna hug the paper." }, spirits: ["Onyun", "Bitty"] }
+    ]
   },
   {
-    question: 6,
-    A: ["Mubii", "Onyun"],
-    B: ["Gingeer", "Gowlic"],
-    C: ["Kroot", "Potatoad"],
-    D: ["Banion", "Onyun"],
-    E: ["Bitty", "Mubii"],
+    question: {
+      id: "6. Kamu nemu rak mainan tua.\nAda satu boneka rusak duduk sendirian.\nKelihatannya... nunggu kamu.",
+      en: "6. You find an old toy shelf.\nOne broken doll sits alone.\nIt looks like... it's waiting for you."
+    },
+    options: [
+      { text: { id: "Jangan-jangan ini aku... dulu.", en: "Maybe… that used to be me." }, spirits: ["Banion", "Mubii"] },
+      { text: { id: "Kasihan banget... ayo pulang bareng aku.", en: "Poor thing… come home with me." }, spirits: ["Bitty", "Gingeer"] },
+      { text: { id: "Dia nggak perlu diselamatin. Dia cuma butuh didengerin.", en: "It doesn’t need saving. Just needs to be heard." }, spirits: ["Mubii", "Kroot"] },
+      { text: { id: "Boneka juga bisa trauma ya?", en: "Dolls can have trauma too, huh?" }, spirits: ["Onyun", "Banion"] },
+      { text: { id: "Ya udah. Duduk aja bareng. Gak usah banyak omong.", en: "Let’s just sit here. No need for words." }, spirits: ["Potatoad", "Gowlic"] }
+    ]
   },
   {
-    question: 7,
-    A: ["Gowlic", "Potatoad"],
-    B: ["Onyun", "Bitty"],
-    C: ["Banion", "Gingeer"],
-    D: ["Bitty", "Gingeer"],
-    E: ["Kroot", "Onyun"],
+    question: {
+      id: "7. Lorong bercabang dua.\nSatu terang dan riuh suara. Satu lagi gelap dan sepi.\nChame cuma ngangguk, biar kamu yang pilih.",
+      en: "7. The corridor splits into two.\nOne is bright and noisy. The other is dark and quiet.\nChame just nods, letting you choose."
+    },
+    options: [
+      { text: { id: "Terang terlalu berisik. Aku ambil yang sepi.", en: "Too loud over there. I’ll take the quiet path." }, spirits: ["Mubii", "Gowlic"] },
+      { text: { id: "Aku masuk yang terang. Biar gak ngerasa sendiri.", en: "I’ll go toward the light. So I don’t feel alone." }, spirits: ["Bitty", "Onyun"] },
+      { text: { id: "Gelap? Ya udah. Lebih jujur daripada basa-basi.", en: "Dark? So be it. More honest than small talk." }, spirits: ["Kroot", "Potatoad"] },
+      { text: { id: "Yang mana aja... asal ada aku-nya di ujung.", en: "Whichever way… as long as I find myself at the end." }, spirits: ["Gingeer", "Mubii"] },
+      { text: { id: "Kalau boleh, aku bikin jalan ketiga.", en: "If I could, I’d make a third path." }, spirits: ["Onyun", "Banion"] }
+    ]
   },
   {
-    question: 8,
-    A: ["Kroot", "Gingeer"],
-    B: ["Banion", "Mubii"],
-    C: ["Potatoad", "Mubii"],
-    D: ["Gowlic", "Mubii"],
-    E: ["Bitty", "Onyun"],
+    question: {
+      id: "8. Di ujung lorong, ada kotak kecil.\nTulisan di atasnya:\n“Tinggalkan satu hal yang paling berat kamu bawa.”",
+      en: "8. At the end of the corridor, there's a small box.\nA sign reads:\n“Leave behind one thing you carry that’s too heavy.”"
+    },
+    options: [
+      { text: { id: "Overthinking.", en: "Overthinking." }, spirits: ["Kroot", "Banion"] },
+      { text: { id: "Takut ditinggalin.", en: "Fear of abandonment." }, spirits: ["Bitty", "Onyun"] },
+      { text: { id: "Perasaan bersalah yang aku nggak ngerti.", en: "That weird guilt I never understood." }, spirits: ["Mubii", "Gingeer"] },
+      { text: { id: "Perfeksionisme biar bisa diterima.", en: "Perfectionism just to feel accepted." }, spirits: ["Gowlic", "Gingeer"] },
+      { text: { id: "Ekspektasi orang yang gak pernah cocok sama aku.", en: "Other people’s expectations that never fit me." }, spirits: ["Potatoad", "Kroot"] }
+    ]
   },
+  {
+    question: {
+      id: "9. Chame menatap kamu:\n“Jadi... kamu kira siapa dirimu yang sebenarnya?”",
+      en: "9. Chame looks at you:\n“So… who do you think you really are?”"
+    },
+    options: [
+      { text: { id: "Yang jagain semua orang, tapi gak bisa jaga diri sendiri.", en: "The one who protects everyone, but can't protect themselves." }, spirits: ["Kroot", "Banion"] },
+      { text: { id: "Yang berisik, tapi cuma pengin didengerin.", en: "The loud one who just wants to be heard." }, spirits: ["Onyun", "Bitty"] },
+      { text: { id: "Yang ngerti orang, tapi belum ngerti diri sendiri.", en: "Understands others, but hasn’t figured themselves out." }, spirits: ["Gingeer", "Mubii"] },
+      { text: { id: "Yang sok kuat, padahal pengin dimengerti.", en: "Pretends to be strong, just wants to be understood." }, spirits: ["Gowlic", "Potatoad"] },
+      { text: { id: "Yang luka, tapi tetap main dan jatuh cinta.", en: "Wounded, but still plays and falls in love." }, spirits: ["Banion", "Bitty"] }
+    ]
+  }
 ];
-const spiritScores = {
-  Kroot: 0, Banion: 0, Gingeer: 0, Gowlic: 0,
-  Mubii: 0, Potatoad: 0, Onyun: 0, Bitty: 0,
-};
-
-answers.forEach((answer, index) => {
-  const questionNumber = index + 1;
-  const spirits = spiritMapping[questionNumber][answer];
-  spirits.forEach(spirit => {
-    spiritScores[spirit]++;
-  });
-});
-
-const topSpirit = Object.entries(spiritScores).sort((a, b) => b[1] - a[1])[0][0];
