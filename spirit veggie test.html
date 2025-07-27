@@ -169,6 +169,42 @@
     </section>
 
     <!-- Quiz Section Placeholder -->
+    <section id="quiz" class="section">
+      <p class="fade-in">[Quiz Placeholder]</p>
+      <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    let lang = 'id';
+
+    function selectLang(selected) {
+      lang = selected;
+      document.getElementById('nameLabel').textContent = lang === 'id' ? 'Nama:' : 'Name:';
+      document.getElementById('igLabel').textContent = lang === 'id' ? 'Instagram (opsional):' : 'Instagram (optional):';
+    }
+
+    function goToProlog1() {
+      showSection('prolog1');
+      setTimeout(() => {
+        document.getElementById('prolog1').classList.add('blur-scroll');
+        document.getElementById('prolog1').style.transform = 'translateY(500px)';
+        document.getElementById('prolog1').style.filter = 'blur(10px)';
+        setTimeout(() => {
+          showSection('prolog2');
+        }, 2000);
+      }, 2500);
+    }
+
+    function showSection(id) {
+      document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+    }
+  </script>
+</body>
+</html>
 <section id="quiz" class="section">
   <div id="quiz-content" class="fade-in">
     <div id="question-container"></div>
@@ -299,31 +335,3 @@ const quizData = [
     ]
   }
 ];
-<script>
-    let lang = 'id';
-
-    function selectLang(selected) {
-      lang = selected;
-      document.getElementById('nameLabel').textContent = lang === 'id' ? 'Nama:' : 'Name:';
-      document.getElementById('igLabel').textContent = lang === 'id' ? 'Instagram (opsional):' : 'Instagram (optional):';
-    }
-
-    function goToProlog1() {
-      showSection('prolog1');
-      setTimeout(() => {
-        document.getElementById('prolog1').classList.add('blur-scroll');
-        document.getElementById('prolog1').style.transform = 'translateY(500px)';
-        document.getElementById('prolog1').style.filter = 'blur(10px)';
-        setTimeout(() => {
-          showSection('prolog2');
-        }, 2000);
-      }, 2500);
-    }
-
-    function showSection(id) {
-      document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-      document.getElementById(id).classList.add('active');
-    }
-  </script>
-</body>
-</html>
