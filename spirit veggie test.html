@@ -180,7 +180,7 @@
       </div>
     </section>
 
- <!-- Result Section -->
+<!-- Result Section -->
 <section id="result" class="section">
   <div class="fade-in" id="result-content" style="text-align: center;">
     <h2 id="result-title"></h2>
@@ -194,7 +194,6 @@
     </button>
   </div>
 </section>
-
 
   <!-- SCRIPT: Quiz Logic & Result Mapping -->
   <script>
@@ -290,8 +289,7 @@
       const progress = ((currentQuestion) / quizData.length) * 100;
       document.getElementById('progressBar').style.width = progress + '%';
     }
-
- function showResult() {
+  function showResult() {
   const topSpirit = Object.entries(spiritScores)
     .sort((a, b) => b[1] - a[1])[0][0];
 
@@ -324,9 +322,10 @@
   document.getElementById('result-title').textContent = titleText;
   document.getElementById('result-image').src = spiritImageMap[topSpirit];
   document.getElementById('result-image2').src = secondImageMap[topSpirit];
-  document.getElementById('result-image').setAttribute('data-src', spiritImageMap[topSpirit]);
 
   showSection('result');
+} // ← tidak pakai titik koma di sini!
+
 }
       };
      function downloadImage() {
