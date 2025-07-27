@@ -160,11 +160,40 @@
       <p class="fade-in">Pas bangun, kamu udah di sebuah lorong. Dingin. Sunyi. Ada makhluk hijau duduk di ujung. Ekornya segitiga.</p>
       <p class="fade-in" style="margin-top:1rem">“Hai, aku Chame. Aku juga tersesat, mau cari jalan pulang bareng gak?”</p>
       <div class="quiz-options">
-        <button class="option-btn">Ayo!</button>
-        <button class="option-btn">Hah?</button>
-        <button class="option-btn">Males…</button>
-        <button class="option-btn">Coba dulu aja deh.</button>
-        <button class="option-btn">Kenapa kamu bantuin aku?</button>
+  <button class="option-btn" data-spirits="Bitty,Gingeer" onclick="chooseProlog2(this)">Ayo!</button>
+  <button class="option-btn" data-spirits="Banion,Onyun" onclick="chooseProlog2(this)">Hah?</button>
+  <button class="option-btn" data-spirits="Gowlic,Mubii" onclick="chooseProlog2(this)">Males…</button>
+  <button class="option-btn" data-spirits="Potatoad,Mubii" onclick="chooseProlog2(this)">Coba dulu aja deh.</button>
+  <button class="option-btn" data-spirits="Kroot,Gowlic" onclick="chooseProlog2(this)">Kenapa kamu bantuin aku?</button>
+</div>
+<script>
+  function chooseProlog2(button) {
+    const selectedSpirits = button.getAttribute("spirits").split(",");
+
+    // Tambahkan 1 skor ke masing-masing spirit
+    selectedSpirits.forEach(spirit => {
+      if (spiritScores[spirit] !== undefined) {
+        spiritScores[spirit]++;
+      }
+    });
+
+    // Lanjut ke bagian kuis
+    showSection('quiz');
+    loadQuestion(currentQuestion);
+  }
+
+  function showSection(id) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+  }
+
+  function loadQuestion(index) {
+    // Fungsi ini akan menampilkan pertanyaan kuis (asumsikan kamu udah punya logic-nya)
+    // Nanti di sini kamu bisa lanjutin script `quizData[index]` dll
+  }
+</script>
+
+
       </div>
     </section>
 
