@@ -1,0 +1,121 @@
+:root {
+  --primary-color: #00a392;
+  --secondary-color: #04b49c;
+  --background-color: #043f3a;
+  --text-color: #fefefe;
+  --font-family: "Poppins", sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: var(--font-family);
+}
+
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  overflow-x: hidden;
+}
+
+.container {
+  max-width: 600px;
+  margin: auto;
+  padding: 2rem;
+}
+
+h1 {
+  font-size: 2rem;
+  text-align: center;
+  font-family: "Fredoka", sans-serif;
+}
+
+.byline {
+  text-align: center;
+  font-style: italic;
+  font-size: 0.8rem;
+  margin-bottom: 2rem;
+}
+
+.language-select button {
+  margin: 0.5rem;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 20px;
+  background-color: var(--primary-color);
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.language-select button:hover {
+  background-color: var(--secondary-color);
+}
+
+.input-group {
+  margin: 1rem 0;
+}
+
+input {
+  width: 100%;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 10px;
+  margin-top: 0.5rem;
+}
+
+.next-btn,
+.option-btn {
+  margin-top: 1.5rem;
+  background-color: var(--primary-color);
+  border: none;
+  padding: 0.7rem 1.5rem;
+  border-radius: 25px;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  transition: background-color 0.3s ease;
+}
+
+.next-btn:hover,
+.option-btn:hover {
+  background-color: var(--secondary-color);
+}
+
+.section {
+  display: none;
+}
+
+.section.active {
+  display: block;
+}
+
+.fade-in {
+  opacity: 0;
+  animation: fadeIn 2s forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+.progress-container {
+  height: 10px;
+  background-color: #0a4f48;
+  border-radius: 5px;
+  overflow: hidden;
+  margin-top: 2rem;
+}
+
+.progress-bar {
+  height: 100%;
+  background-color: var(--primary-color);
+  width: 0%;
+  transition: width 0.3s ease;
+}
