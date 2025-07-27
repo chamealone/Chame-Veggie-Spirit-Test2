@@ -2,10 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>What's Your Spirit Veggie Test | by Chamealone</title>
   <link href="https://fonts.googleapis.com/css2?family=Fredoka&family=Poppins&display=swap" rel="stylesheet">
   <style>
+    /* --- CSS: sama seperti sebelumnya --- */
     * {
       margin: 0;
       padding: 0;
@@ -178,8 +179,17 @@
         <div class="progress-bar" id="progressBar"></div>
       </div>
     </section>
+
+    <!-- Result Section -->
+    <section id="result" class="section">
+      <div class="fade-in" id="result-content" style="text-align: center;">
+        <h2 id="result-title"></h2>
+        <img id="result-image" src="" alt="Spirit Result" style="max-width: 100%; height: auto; margin-top: 1rem;" />
+      </div>
+    </section>
   </div>
 
+  <!-- SCRIPT: Quiz Logic & Result Mapping -->
   <script>
     let lang = 'id';
     let currentQuestion = 0;
@@ -211,7 +221,7 @@
 
     function goToProlog1() {
       showSection('prolog1');
-      selectLang(lang); // refresh prolog texts
+      selectLang(lang);
       setTimeout(() => {
         const p1 = document.getElementById('prolog1');
         p1.classList.add('blur-scroll');
@@ -262,7 +272,7 @@
             loadQuestion(currentQuestion);
             updateProgress();
           } else {
-            alert('Quiz selesai! (placeholder hasil)');
+            showResult(); // Final step: show the result
           }
         };
         optionsContainer.appendChild(btn);
@@ -273,8 +283,34 @@
       const progress = ((currentQuestion) / quizData.length) * 100;
       document.getElementById('progressBar').style.width = progress + '%';
     }
+
+    function showResult() {
+      const topSpirit = Object.entries(spiritScores)
+        .sort((a, b) => b[1] - a[1])[0][0];
+
+      const spiritImageMap = {
+        Kroot: 'img/kroot.png', 'img/kroot2.png'
+        Banion: 'img/banion.png','img/banion2.png'
+        Mubii: 'img/mubii.png','img/mubii2.png'
+        Bitty: 'img/bitty.png',img/bitty2.png'
+        Gowlic: 'img/gowlic.png', 'img/gowlic2.png'
+        Gingeer: 'img/gingeer.png','img/gingeer2.png'
+        Potatoad: 'img/potatoad.png', 'img/potatoad2.png'
+        Onyun: 'img/onyun.png', 'img/onyun.png'
+      };
+
+      const titleText = lang === 'id'
+        ? `Roh dominanmu: ${topSpirit}`
+        : `Your spirit veggie is: ${topSpirit}`;
+
+      document.getElementById('result-title').textContent = titleText;
+      document.getElementById('result-image').src = spiritImageMap[topSpirit] || 'img/default.png';
+
+      showSection('result');
+    }
   </script>
 
+  <!-- Quiz Data -->
   <script>
 const quizData = [
   {
@@ -396,36 +432,5 @@ const quizData = [
   }
 ];  </script>
 </body>
-</html>
-
-<!-- Result Section -->
-<section id="result" class="section">
-  <div class="fade-in" id="result-content" style="text-align: center;">
-    <h2 id="result-title"></h2>
-    <img id="result-image" src="" alt="Rohmu" style="max-width: 100%; height: auto; margin-top: 1rem;" />
-  </div>
-</section>
-<script>
-function showResult() {
-  const topSpirit = Object.entries(spiritScores)
-    .sort((a, b) => b[1] - a[1])[0][0];
-
-  const spiritImageMap = {
-    Kroot: 'img/kroot.png',
-    Banion: 'img/banion.png',
-    Mubii: 'img/mubii.png',
-    Bitty: 'img/bitty.png',
-    Gowlic: 'img/gowlic.png',
-    Gingeer: 'img/gingeer.png',
-    Potatoad: 'img/potatoad.png',
-    Onyun: 'img/onyun.png'
-  };
-
-  document.getElementById('result-title').textContent = `Roh dominanmu: ${topSpirit}`;
-  document.getElementById('result-image').src = spiritImageMap[topSpirit] || 'img/default.png';
-
-  showSection('result');
-}
-</script>
-
+</html> 
 
