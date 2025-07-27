@@ -1,31 +1,62 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>What's Your Spirit Veggie Test | by Chamealone</title>
   <link href="https://fonts.googleapis.com/css2?family=Fredoka&family=Poppins&display=swap" rel="stylesheet">
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-    body { background-color: #043f3a; color: #fefefe; overflow-x: hidden; }
-    .container { max-width: 600px; margin: auto; padding: 2rem; }
-    h1 { font-size: 2rem; text-align: center; font-family: 'Fredoka', sans-serif; }
-    .byline { text-align: center; font-style: italic; font-size: 0.8rem; margin-bottom: 2rem; }
-    .language-select button,
-    .next-btn, .option-btn {
-      margin: 0.5rem auto;
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background-color: #043f3a;
+      color: #fefefe;
+      overflow-x: hidden;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: auto;
+      padding: 2rem;
+    }
+
+    h1 {
+      font-size: 2rem;
+      text-align: center;
+      font-family: 'Fredoka', sans-serif;
+    }
+
+    .byline {
+      text-align: center;
+      font-style: italic;
+      font-size: 0.8rem;
+      margin-bottom: 2rem;
+    }
+
+    .language-select button {
+      margin: 0.5rem;
       padding: 0.5rem 1rem;
       border: none;
       border-radius: 20px;
       background-color: #066f61;
       color: #fff;
       cursor: pointer;
-      display: block;
       transition: background-color 0.3s ease;
     }
-    .language-select button:hover,
-    .next-btn:hover, .option-btn:hover { background-color: #04b49c; }
-    .input-group { margin: 1rem 0; }
+
+    .language-select button:hover {
+      background-color: #04b49c;
+    }
+
+    .input-group {
+      margin: 1rem 0;
+    }
+
     input {
       width: 100%;
       padding: 0.5rem;
@@ -33,11 +64,55 @@
       border-radius: 10px;
       margin-top: 0.5rem;
     }
-    .section { display: none; }
-    .section.active { display: block; }
-    .fade-in { opacity: 0; animation: fadeIn 2s forwards; }
-    @keyframes fadeIn { to { opacity: 1; } }
-    .quiz-options { display: flex; flex-direction: column; gap: 1rem; }
+
+    .next-btn, .option-btn {
+      margin-top: 1.5rem;
+      background-color: #00a392;
+      border: none;
+      padding: 0.7rem 1.5rem;
+      border-radius: 25px;
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      transition: background-color 0.3s ease;
+    }
+
+    .next-btn:hover, .option-btn:hover {
+      background-color: #02ccb5;
+    }
+
+    .section {
+      display: none;
+    }
+
+    .section.active {
+      display: block;
+    }
+
+    .blur-scroll {
+      transition: filter 1.5s ease, transform 2s ease;
+    }
+
+    .fade-in {
+      opacity: 0;
+      animation: fadeIn 2s forwards;
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+
+    .quiz-options {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
     .progress-container {
       height: 10px;
       background-color: #0a4f48;
@@ -45,6 +120,7 @@
       overflow: hidden;
       margin-top: 2rem;
     }
+
     .progress-bar {
       height: 100%;
       background-color: #00ccb0;
@@ -74,49 +150,64 @@
       <button class="next-btn" onclick="goToProlog1()">Next</button>
     </section>
 
-    <!-- Prolog 1 -->
+    <!-- Prolog 1: Kejadian Jatuh -->
     <section id="prolog1" class="section">
       <p class="fade-in">Sore itu kamu jalan santai di taman. Tapi waktu menginjak tumpukan daun, dirimu terjatuh. Seakan-akan bumi bilang, "Bye!"</p>
     </section>
 
-    <!-- Prolog 2 -->
+    <!-- Prolog 2: Lorong & Chame -->
     <section id="prolog2" class="section">
       <p class="fade-in">Pas bangun, kamu udah di sebuah lorong. Dingin. Sunyi. Ada makhluk hijau duduk di ujung. Ekornya segitiga.</p>
       <p class="fade-in" style="margin-top:1rem">“Hai, aku Chame. Aku juga tersesat, mau cari jalan pulang bareng gak?”</p>
       <div class="quiz-options">
-        <button class="option-btn" data-spirits="Bitty,Gingeer" onclick="chooseProlog2(this)">Ayo!</button>
-        <button class="option-btn" data-spirits="Banion,Onyun" onclick="chooseProlog2(this)">Hah?</button>
-        <button class="option-btn" data-spirits="Gowlic,Mubii" onclick="chooseProlog2(this)">Males…</button>
-        <button class="option-btn" data-spirits="Potatoad,Mubii" onclick="chooseProlog2(this)">Coba dulu aja deh.</button>
-        <button class="option-btn" data-spirits="Kroot,Gowlic" onclick="chooseProlog2(this)">Kenapa kamu bantuin aku?</button>
+  <button class="option-btn" data-spirits="Bitty,Gingeer" onclick="chooseProlog2(this)">Ayo!</button>
+  <button class="option-btn" data-spirits="Banion,Onyun" onclick="chooseProlog2(this)">Hah?</button>
+  <button class="option-btn" data-spirits="Gowlic,Mubii" onclick="chooseProlog2(this)">Males…</button>
+  <button class="option-btn" data-spirits="Potatoad,Mubii" onclick="chooseProlog2(this)">Coba dulu aja deh.</button>
+  <button class="option-btn" data-spirits="Kroot,Gowlic" onclick="chooseProlog2(this)">Kenapa kamu bantuin aku?</button>
+</div>
+<script>
+  function chooseProlog2(button) {
+    const selectedSpirits = button.getAttribute("spirits").split(",");
+
+    // Tambahkan 1 skor ke masing-masing spirit
+    selectedSpirits.forEach(spirit => {
+      if (spiritScores[spirit] !== undefined) {
+        spiritScores[spirit]++;
+      }
+    });
+
+    // Lanjut ke bagian kuis
+    showSection('quiz');
+    loadQuestion(currentQuestion);
+  }
+
+  function showSection(id) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+  }
+
+  function loadQuestion(index) {
+    // Fungsi ini akan menampilkan pertanyaan kuis (asumsikan kamu udah punya logic-nya)
+    // Nanti di sini kamu bisa lanjutin script quizData[index] dll
+  }
+</script>
+
+
       </div>
     </section>
 
-    <!-- Quiz Section -->
+    <!-- Quiz Section Placeholder -->
     <section id="quiz" class="section">
-      <div id="quiz-content" class="fade-in">
-        <div id="question-container"></div>
-        <div class="quiz-options" id="options-container"></div>
-      </div>
+      <p class="fade-in">[Quiz Placeholder]</p>
       <div class="progress-container">
         <div class="progress-bar" id="progressBar"></div>
       </div>
-    </section>
-
-    <!-- Result Section Placeholder -->
-    <section id="result" class="section">
-      <h2>Hasilmu akan muncul di sini 🎉</h2>
-      <p id="resultText">Coming soon...</p>
     </section>
   </div>
 
   <script>
     let lang = 'id';
-    let currentQuestion = 0;
-    const spiritScores = {
-      Kroot: 0, Banion: 0, Potatoad: 0, Mubii: 0,
-      Onyun: 0, Bitty: 0, Gingeer: 0, Gowlic: 0
-    };
 
     function selectLang(selected) {
       lang = selected;
@@ -127,8 +218,9 @@
     function goToProlog1() {
       showSection('prolog1');
       setTimeout(() => {
-        document.getElementById('prolog1').style.filter = 'blur(10px)';
+        document.getElementById('prolog1').classList.add('blur-scroll');
         document.getElementById('prolog1').style.transform = 'translateY(500px)';
+        document.getElementById('prolog1').style.filter = 'blur(10px)';
         setTimeout(() => {
           showSection('prolog2');
         }, 2000);
@@ -139,61 +231,20 @@
       document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
       document.getElementById(id).classList.add('active');
     }
+  </script>
+</body>
+</html>
+<section id="quiz" class="section">
+  <div id="quiz-content" class="fade-in">
+    <div id="question-container"></div>
+    <div class="quiz-options" id="options-container"></div>
+  </div>
+  <div class="progress-container">
+    <div class="progress-bar" id="progressBar"></div>
+  </div>
+</section>
 
-    function chooseProlog2(button) {
-      const selectedSpirits = button.getAttribute("data-spirits").split(",");
-      selectedSpirits.forEach(spirit => {
-        if (spiritScores[spirit] !== undefined) {
-          spiritScores[spirit]++;
-        }
-      });
-      showSection('quiz');
-      loadQuestion(currentQuestion);
-    }
-
-    function loadQuestion(index) {
-      if (index >= quizData.length) {
-        showResult();
-        return;
-      }
-
-      const questionData = quizData[index];
-      const questionText = lang === 'id' ? questionData.question.id : questionData.question.en;
-      const questionContainer = document.getElementById('question-container');
-      const optionsContainer = document.getElementById('options-container');
-
-      questionContainer.innerHTML = `<p>${questionText}</p>`;
-      optionsContainer.innerHTML = '';
-
-      questionData.options.forEach(option => {
-        const btn = document.createElement('button');
-        btn.classList.add('option-btn');
-        btn.textContent = lang === 'id' ? option.text.id : option.text.en;
-        btn.onclick = () => {
-          option.spirits.forEach(spirit => {
-            if (spiritScores[spirit] !== undefined) {
-              spiritScores[spirit]++;
-            }
-          });
-          currentQuestion++;
-          updateProgress();
-          loadQuestion(currentQuestion);
-        };
-        optionsContainer.appendChild(btn);
-      });
-    }
-
-    function updateProgress() {
-      const progress = ((currentQuestion) / quizData.length) * 100;
-      document.getElementById("progressBar").style.width = `${progress}%`;
-    }
-
-    function showResult() {
-      showSection('result');
-      const maxScore = Math.max(...Object.values(spiritScores));
-      const topSpirits = Object.keys(spiritScores).filter(spirit => spiritScores[spirit] === maxScore);
-      document.getElementById('resultText').innerText = `Spirit kamu: ${topSpirits.join(' & ')}`;
-    }
+<script>
 const quizData = [
   {
     question: {
