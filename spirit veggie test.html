@@ -150,23 +150,43 @@
       <button class="next-btn" onclick="goToProlog1()">Next</button>
     </section>
 
-    <!-- Prolog 1: Kejadian Jatuh -->
-    <section id="prolog1" class="section">
-      <p class="fade-in">Sore itu kamu jalan santai di taman. Tapi waktu menginjak tumpukan daun, dirimu terjatuh. Seakan-akan bumi bilang, "Bye!"</p>
-    </section>
+   <!-- Prolog 1: Kejadian Jatuh -->
+<section id="prolog1" class="section">
+  <p class="fade-in">Sore itu kamu jalan santai di taman. Tapi waktu menginjak tumpukan daun, dirimu terjatuh. Seakan-akan bumi bilang, "Bye!"</p>
+</section>
 
-    <!-- Prolog 2: Lorong & Chame -->
-    <section id="prolog2" class="section">
-      <p class="fade-in">Pas bangun, kamu udah di sebuah lorong. Dingin. Sunyi. Ada makhluk hijau duduk di ujung. Ekornya segitiga.</p>
-      <p class="fade-in" style="margin-top:1rem">“Hai, aku Chame. Aku juga tersesat, mau cari jalan pulang bareng gak?”</p>
-      <div class="quiz-options">
-  <button class="option-btn" data-spirits="Bitty,Gingeer" onclick="chooseProlog2(this)">Ayo!</button>
-  <button class="option-btn" data-spirits="Banion,Onyun" onclick="chooseProlog2(this)">Hah?</button>
-  <button class="option-btn" data-spirits="Gowlic,Mubii" onclick="chooseProlog2(this)">Males…</button>
-  <button class="option-btn" data-spirits="Potatoad,Mubii" onclick="chooseProlog2(this)">Coba dulu aja deh.</button>
-  <button class="option-btn" data-spirits="Kroot,Gowlic" onclick="chooseProlog2(this)">Kenapa kamu bantuin aku?</button>
-</div>
-<script>
+<!-- Prolog 2: Lorong & Chame -->
+<section id="prolog2" class="section">
+  <p class="fade-in">Pas bangun, kamu udah di sebuah lorong. Dingin. Sunyi. Ada makhluk hijau duduk di ujung. Ekornya segitiga.</p>
+  <p class="fade-in" style="margin-top:1rem">“Hai, aku Chame. Aku juga tersesat, mau cari jalan pulang bareng gak?”</p>
+  <div class="quiz-options">
+    <button class="option-btn" data-spirits="Bitty,Gingeer" onclick="chooseProlog2(this)">Ayo!</button>
+    <button class="option-btn" data-spirits="Banion,Onyun" onclick="chooseProlog2(this)">Hah?</button>
+    <button class="option-btn" data-spirits="Gowlic,Mubii" onclick="chooseProlog2(this)">Males…</button>
+    <button class="option-btn" data-spirits="Potatoad,Mubii" onclick="chooseProlog2(this)">Coba dulu aja deh.</button>
+    <button class="option-btn" data-spirits="Kroot,Gowlic" onclick="chooseProlog2(this)">Kenapa kamu bantuin aku?</button>
+  </div>
+</section>
+
+<!-- Prolog 1 (EN): The Fall Incident -->
+<section en="prolog1-en" class="section" style="display:none">
+  <p class="fade-in">That afternoon, you were walking leisurely in the park. But as you stepped on a pile of leaves, you suddenly fell through. As if the earth said, “Bye!”</p>
+</section>
+
+<!-- Prolog 2 (EN): The Corridor & Chame -->
+<section en="prolog2-en" class="section" style="display:none">
+  <p class="fade-in">When you wake up, you're already in a corridor. Cold. Silent. A green creature is sitting at the far end. Its tail is shaped like a triangle.</p>
+  <p class="fade-in" style="margin-top:1rem">“Hi, I'm Chame. I got lost too. Wanna find the way out together?”</p>
+  <div class="quiz-options">
+    <button class="option-btn" data-spirits="Bitty,Gingeer" onclick="chooseProlog2(this)">Let’s go!</button>
+    <button class="option-btn" data-spirits="Banion,Onyun" onclick="chooseProlog2(this)">Huh?</button>
+    <button class="option-btn" data-spirits="Gowlic,Mubii" onclick="chooseProlog2(this)">Nah, pass...</button>
+    <button class="option-btn" data-spirits="Potatoad,Mubii" onclick="chooseProlog2(this)">Might as well try.</button>
+    <button class="option-btn" data-spirits="Kroot,Gowlic" onclick="chooseProlog2(this)">Why are you helping me?</button>
+  </div>
+</section>
+
+
   function chooseProlog2(button) {
     const selectedSpirits = button.getAttribute("spirits").split(",");
 
