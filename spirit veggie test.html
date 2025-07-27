@@ -180,20 +180,14 @@
       </div>
     </section>
 
-<!-- Result Section -->
-<section id="result" class="section">
-  <div class="fade-in" id="result-content" style="text-align: center;">
-    <h2 id="result-title"></h2>
-    <img id="result-image" src="" alt="Spirit Result 1" style="max-width: 100%; height: auto; margin-top: 1rem;" />
-    <img id="result-image2" src="" alt="Spirit Result 2" style="max-width: 100%; height: auto; margin-top: 1rem;" />
-    <button class="next-btn" onclick="downloadImage()">
-      Unduh Gambar
-    </button>
-    <button class="next-btn" onclick="shareLink()">
-      Bagikan Tes Ini
-    </button>
+    <!-- Result Section -->
+    <section id="result" class="section">
+      <div class="fade-in" id="result-content" style="text-align: center;">
+        <h2 id="result-title"></h2>
+        <img id="result-image" src="" alt="Spirit Result" style="max-width: 100%; height: auto; margin-top: 1rem;" />
+      </div>
+    </section>
   </div>
-</section>
 
   <!-- SCRIPT: Quiz Logic & Result Mapping -->
   <script>
@@ -289,61 +283,31 @@
       const progress = ((currentQuestion) / quizData.length) * 100;
       document.getElementById('progressBar').style.width = progress + '%';
     }
-  function showResult() {
-  const topSpirit = Object.entries(spiritScores)
-    .sort((a, b) => b[1] - a[1])[0][0];
 
-  const spiritImageMap = {
-    Kroot: 'img/kroot-id.png',
-    Banion: 'img/banion-id.png',
-    Mubii: 'img/mubii-id.png',
-    Bitty: 'img/bitty-id.png',
-    Gowlic: 'img/gowlic-id.png',
-    Gingeer: 'img/gingeer-id.png',
-    Potatoad: 'img/potatoad-id.png',
-    Onyun: 'img/onyun-id.png',
-  };
+    function showResult() {
+      const topSpirit = Object.entries(spiritScores)
+        .sort((a, b) => b[1] - a[1])[0][0];
 
-  const secondImageMap = {
-    Kroot: 'img/kroot2-id.png',
-    Banion: 'img/banion2-id.png',
-    Mubii: 'img/mubii2-id.png',
-    Bitty: 'img/bitty2-id.png',
-    Gowlic: 'img/gowlic2-id.png',
-    Gingeer: 'img/gingeer2-id.png',
-    Potatoad: 'img/potatoad2-id.png',
-    Onyun: 'img/onyun2-id.png',
-  };
+      const spiritImageMap = {
+        Kroot: 'img/kroot-id.png',
+        Banion: 'img/banion-id.png',
+        Mubii: 'img/mubii-id.png',
+        Bitty: 'img/bitty-id.png',
+        Gowlic: 'img/gowlic-id.png',
+        Gingeer: 'img/gingeer-id.png',
+        Potatoad: 'img/potatoad-id.png',
+        Onyun: 'img/onyun-id.png',
 
-  const titleText = lang === 'id'
-    ? `Roh dominanmu: ${topSpirit}`
-    : `Your spirit veggie is: ${topSpirit}`;
-
-  document.getElementById('result-title').textContent = titleText;
-  document.getElementById('result-image').src = spiritImageMap[topSpirit];
-  document.getElementById('result-image2').src = secondImageMap[topSpirit];
-
-  showSection('result');
-} // ← tidak pakai titik koma di sini!
-
-}
       };
-     function downloadImage() {
-  const img = document.getElementById('result-image');
-  const link = document.createElement('a');
-  link.href = img.src;
-  link.download = 'spirit-veggie.png';
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
-}
 
-function shareLink() {
-  const url = window.location.href.split('#')[0];
-  navigator.clipboard.writeText(url).then(() => {
-    alert(lang === 'id' ? 'Link telah disalin!' : 'Link copied!');
-  });
-}
+      const titleText = lang === 'id'
+        ? `Roh dominanmu: ${topSpirit}`
+        : `Your spirit veggie is: ${topSpirit}`;
+
+      document.getElementById('result-title').textContent = titleText;
+      document.getElementById('result-image').src = spiritImageMap[topSpirit] || 'img/default.png';
+
+      showSection('result');
     }
   </script>
 
@@ -470,4 +434,3 @@ const quizData = [
 ];  </script>
 </body>
 </html> 
-~
