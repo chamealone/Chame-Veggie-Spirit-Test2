@@ -398,3 +398,34 @@ const quizData = [
 </body>
 </html>
 
+<!-- Result Section -->
+<section id="result" class="section">
+  <div class="fade-in" id="result-content" style="text-align: center;">
+    <h2 id="result-title"></h2>
+    <img id="result-image" src="" alt="Rohmu" style="max-width: 100%; height: auto; margin-top: 1rem;" />
+  </div>
+</section>
+<script>
+function showResult() {
+  const topSpirit = Object.entries(spiritScores)
+    .sort((a, b) => b[1] - a[1])[0][0];
+
+  const spiritImageMap = {
+    Kroot: 'img/kroot.png',
+    Banion: 'img/banion.png',
+    Mubii: 'img/mubii.png',
+    Bitty: 'img/bitty.png',
+    Gowlic: 'img/gowlic.png',
+    Gingeer: 'img/gingeer.png',
+    Potatoad: 'img/potatoad.png',
+    Onyun: 'img/onyun.png'
+  };
+
+  document.getElementById('result-title').textContent = `Roh dominanmu: ${topSpirit}`;
+  document.getElementById('result-image').src = spiritImageMap[topSpirit] || 'img/default.png';
+
+  showSection('result');
+}
+</script>
+
+
