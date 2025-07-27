@@ -184,10 +184,18 @@
     <section id="result" class="section">
       <div class="fade-in" id="result-content" style="text-align: center;">
         <h2 id="result-title"></h2>
-        <img id="result-image" src="" alt="Spirit Result" style="max-width: 100%; height: auto; margin-top: 1rem;" />
+        <h2 id="result-title"></h2>
+  <img id="result-img1" src="" alt="Result 1" />
+  <img id="result-img2" src="" alt="Result 2" />
+</div>
+
+<button id="downloadBtn1">Download PNG 1</button>
+<button id="downloadBtn2">Download PNG 2</button> style="max-width: 100%; height: auto; margin-top: 1rem;" />
+
       </div>
     </section>
   </div>
+
 
   <!-- SCRIPT: Quiz Logic & Result Mapping -->
   <script>
@@ -285,28 +293,42 @@
     }
 
     function showResult() {
-      const topSpirit = Object.entries(spiritScores)
-        .sort((a, b) => b[1] - a[1])[0][0];
+  const topSpirit = Object.entries(spiritScores)
+    .sort((a, b) => b[1] - a[1])[0][0];
 
-      const spiritImageMap = {
-        Kroot: 'img/kroot.png',
-        Banion: 'img/banion.png',
-        Mubii: 'img/mubii.png',
-        Bitty: 'img/bitty.png',
-        Gowlic: 'img/gowlic.png', 
-        Gingeer: 'img/gingeer.png',
-        Potatoad: 'img/potatoad.png',
-        Onyun: 'img/onyun.png',
-      };
+  const spiritImageMap = {
+    Kroot: ['img/kroot-id.png', 'img/kroot2-id.png'],
+    Banion: ['img/banion-id.png', 'img/banion2-id.png'],
+    Mubii: ['img/mubii-id.png', 'img/mubii2-id.png'],
+    Bitty: ['img/bitty-id.png', 'img/bitty2-id.png'],
+    Gowlic: ['img/gowlic-id.png', 'img/gowlic2-id.png'],
+    Gingeer: ['img/gingeer-id.png', 'img/gingeer2-id.png'],
+    Potatoad: ['img/potatoad-id.png', 'img/potatoad2-id.png'],
+    Onyun: ['img/onyun-id.png', 'img/onyun2-id.png'],
+  };
 
-      const titleText = lang === 'id'
-        ? `Roh dominanmu: ${topSpirit}`
-        : `Your spirit veggie is: ${topSpirit}`;
+  const spiritImages = spiritImageMap[topSpirit] || ['img/default1.png', 'img/default2.png'];
+  const fileNameBase = lang === 'id' ? `${topSpirit.toLowerCase()}-id` : `${topSpirit.toLowerCase()}-en`;
 
-      document.getElementById('result-title').textContent = titleText;
-      document.getElementById('result-image').src = spiritImageMap[topSpirit] || 'img/default.png';
+  document.getElementById('result-title').textContent =
+    lang === 'id'
+      ? `Roh dominanmu: ${topSpirit}`
+      : `Your spirit veggie is: ${topSpirit}`;
 
-      showSection('result');
+  document.getElementById('result-img1').src = spiritImages[0];
+  document.getElementById('result-img2').src = spiritImages[1];
+
+  // Download logic
+  document.getElementById('downloadBtn1').onclick = () => {
+    downloadImage(spiritImages[0], `${fileNameBase}.png`);
+  };
+
+  document.getElementById('downloadBtn2').onclick = () => {
+    downloadImage(spiritImages[1], `${fileNameBase}2.png`);
+  };
+
+  showSection('result');
+}
     }
   </script>
 
