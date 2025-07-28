@@ -1,0 +1,88 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+
+@import "tailwindcss";
+
+@font-face {
+  font-family: "Fredoka";
+  src: url("/fonts/Fredoka-VariableFont_wdth,wght.ttf") format("truetype");
+}
+
+@theme {
+  --primary-color: #00a392;
+  --secondary-color: #04b49c;
+  --background-color: #043f3a;
+  --text-color: #fefefe;
+  --font-family: "Poppins", sans-serif;
+}
+
+html,
+body {
+  width: 100%;
+  background-color: #043f3a;
+  color: white;
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+@utility flex-center {
+  @apply flex justify-center items-center;
+}
+
+@utility col-center {
+  @apply flex flex-col justify-center items-center;
+}
+
+@utility abs-center {
+  @apply absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2;
+}
+
+@utility text-gradient {
+  background: linear-gradient(to bottom, #ffffff, #898989);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@utility radial-gradient {
+  background: radial-gradient(
+    circle at center,
+    #434343 0%,
+    #000 50%,
+    transparent 100%
+  );
+}
+
+@utility masked-img {
+  mask-image: url("/images/mask-img.png");
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: 50%;
+}
+
+@layer components {
+  .btn {
+    @apply bg-[var(--primary-color)] text-white font-semibold px-6 py-2 rounded-full text-lg transition-colors;
+  }
+
+  .btn:hover {
+    @apply bg-[var(--secondary-color)];
+  }
+
+  .progress-container {
+    @apply h-2 rounded-full overflow-hidden mt-8 bg-[#0a4f48];
+  }
+
+  .progress-bar {
+    @apply h-full bg-[var(--primary-color)] transition-all;
+    width: 0%; /* will be set dynamically */
+  }
+
+  .fade-in {
+    @apply opacity-0 animate-fadeIn;
+  }
+
+  .parallax-character {
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.8))
+      drop-shadow(0 0 20px rgba(255, 255, 255, 0.4));
+  }
+}

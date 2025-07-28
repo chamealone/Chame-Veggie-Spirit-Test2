@@ -1,44 +1,42 @@
-import { useState } from 'react';
-import Quiz from './components/Quiz';
-import LanguageSwitcher from './components/LanguageSwitcher';
-import Result from './components/Result';
-import Landing from './components/Landing';
-import { useLocalStorage } from './hooks/useLocalStorage';
+import gsap from "gsap";
+import { useState } from "react";
+import LandingPage from "./components/Landing";
+import PrologPage from "./components/PrologPage";
+import QuizPage from "./components/QuizPage";
+import ResultPage from "./components/ResultPage";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import HeroParallax from "./components/HeroParallax";
 
-const App = () => {
-  const [userData, setUserData] = useLocalStorage('userData', { name: '', instagram: '' });
-  const [quizProgress, setQuizProgress] = useState(0);
-  const [quizResults, setQuizResults] = useState(null);
-  const [language, setLanguage] = useState('id'); // Default language is Indonesian
+gsap.registerPlugin(ScrollTrigger);
 
-  const handleUserData = (data) => {
-    setUserData(data);
-  };
-
-  const handleQuizProgress = (progress) => {
-    setQuizProgress(progress);
-  };
-
-  const handleQuizResults = (results) => {
-    setQuizResults(results);
-  };
+function App() {
+  const [page, setPage] = useState("hero");
+  const [lang, setLang] = useState("id");
+  const [userData, setUserData] = useState({ name: "", ig: "" });
+  const [result, setResult] = useState(null);
 
   return (
-    <div>
-      <LanguageSwitcher language={language} setLanguage={setLanguage} />
-      {quizResults ? (
-        <Result results={quizResults} userData={userData} />
-      ) : (
-        <Quiz
-          userData={userData}
-          onUserData={handleUserData}
-          onQuizProgress={handleQuizProgress}
-          onQuizResults={handleQuizResults}
-        />
-      )}
-      {!quizResults && <Landing setUserData={setUserData} />}
-    </div>
+    <main className="bg-[#043f3a] text-white">
+      <HeroParallax />
+      <LandingPage lang={lang} setLang={setLang} setUserData={setUserData} />
+      <PrologPage lang={lang} />
+      <QuizPage
+        lang={lang}
+        onFinish={(score) => {
+          setResult(score);
+          // Scroll ke bawah pakai ref/gsap
+        }}
+      />
+      <ResultPage
+        score={result}
+        lang={lang}
+        onRestart={() => {
+          setResult(0);
+          // Scroll ke atas pakai ref/gsap
+        }}
+      />
+    </main>
   );
-};
+}
 
 export default App;

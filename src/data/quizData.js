@@ -1,8 +1,12 @@
-const quizData = [
+// src/data/questions.js
+
+export const questions = [
     {
-        question: {
-            id: "1. Portal di belakangmu hilang. Lorong terus memanjang. Gak ada jalan balik.\nLangkahmu pelan-pelan makin jauh.\nRasanya...",
-            en: "1. The portal behind you disappears. The corridor stretches endlessly. No turning back now.\nYour steps go further and further.\nYou feel...",
+        id: 1,
+        question_id: "Q1",
+        question_text: {
+            id: "Portal di belakangmu hilang. Lorong terus memanjang. Gak ada jalan balik.\nLangkahmu pelan-pelan makin jauh.\nRasanya...",
+            en: "The portal behind you disappears. The corridor stretches endlessly. No turning back now.\nYour steps go further and further.\nYou feel...",
         },
         options: [
             {
@@ -43,9 +47,11 @@ const quizData = [
         ],
     },
     {
-        question: {
-            id: "2. Di depan, batu besar nutup jalan.\nChame nunjuk lima ukiran aneh di dinding.\n“Tekan salah satu, siapa tahu geser batunya,” katanya.",
-            en: "2. A giant rock blocks your way.\nChame points at five strange carvings on the wall.\n“Try pressing one. Maybe the rock will move,” they say.",
+        id: 2,
+        question_id: "Q2",
+        question_text: {
+            id: "Di depan, batu besar nutup jalan.\nChame nunjuk lima ukiran aneh di dinding.\n“Tekan salah satu, siapa tahu geser batunya,” katanya.",
+            en: "A giant rock blocks your way.\nChame points at five strange carvings on the wall.\n“Try pressing one. Maybe the rock will move,” they say.",
         },
         options: [
             {
@@ -86,9 +92,11 @@ const quizData = [
         ],
     },
     {
-        question: {
-            id: "3. Lorongnya makin gelap. Tapi kakimu tetap jalan.\nLangkahmu berubah jadi refleks.\nKamu sadar...",
-            en: "3. The corridor gets darker. But your feet keep moving.\nYou start walking on reflex.\nYou realize...",
+        id: 3,
+        question_id: "Q3",
+        question_text: {
+            id: "Lorongnya makin gelap. Tapi kakimu tetap jalan.\nLangkahmu berubah jadi refleks.\nKamu sadar...",
+            en: "The corridor gets darker. But your feet keep moving.\nYou start walking on reflex.\nYou realize...",
         },
         options: [
             {
@@ -129,9 +137,11 @@ const quizData = [
         ],
     },
     {
-        question: {
-            id: "4. Di pojok lorong, kamu lihat cermin pecah.\nSalah satu pantulannya… versi kecil dirimu. Lagi duduk. Nangis.",
-            en: "4. At the corner of the corridor, you see a cracked mirror.\nOne reflection shows a tiny version of you, sitting and crying.",
+        id: 4,
+        question_id: "Q4",
+        question_text: {
+            id: "Di pojok lorong, kamu lihat cermin pecah.\nSalah satu pantulannya… versi kecil dirimu. Lagi duduk. Nangis.",
+            en: "At the corner of the corridor, you see a cracked mirror.\nOne reflection shows a tiny version of you, sitting and crying.",
         },
         options: [
             {
@@ -172,9 +182,11 @@ const quizData = [
         ],
     },
     {
-        question: {
-            id: "5. Seekor burung lewat, menjatuhkan secarik kertas.\nTulisannya kayak tulisanmu waktu kecil:\n“Maaf ya, aku belum cukup baik.”",
-            en: "5. A bird flies by and drops a small paper.\nThe handwriting looks like yours as a kid:\n“Sorry, I'm still not good enough.”",
+        id: 5,
+        question_id: "Q5",
+        question_text: {
+            id: "Seekor burung lewat, menjatuhkan secarik kertas.\nTulisannya kayak tulisanmu waktu kecil:\n“Maaf ya, aku belum cukup baik.”",
+            en: "A bird flies by and drops a small paper.\nThe handwriting looks like yours as a kid:\n“Sorry, I'm still not good enough.”",
         },
         options: [
             {
@@ -215,9 +227,11 @@ const quizData = [
         ],
     },
     {
-        question: {
-            id: "6. Kamu nemu rak mainan tua.\nAda satu boneka rusak duduk sendirian.\nKelihatannya... nunggu kamu.",
-            en: "6. You find an old toy shelf.\nOne broken doll sits alone.\nIt looks like... it's waiting for you.",
+        id: 6,
+        question_id: "Q6",
+        question_text: {
+            id: "Kamu nemu rak mainan tua.\nAda satu boneka rusak duduk sendirian.\nKelihatannya... nunggu kamu.",
+            en: "You find an old toy shelf.\nOne broken doll sits alone.\nIt looks like... it's waiting for you.",
         },
         options: [
             {
@@ -258,9 +272,11 @@ const quizData = [
         ],
     },
     {
-        question: {
-            id: "7. Lorong bercabang dua.\nSatu terang dan riuh suara. Satu lagi gelap dan sepi.\nChame cuma ngangguk, biar kamu yang pilih.",
-            en: "7. The corridor splits into two.\nOne is bright and noisy. The other is dark and quiet.\nChame just nods, letting you choose.",
+        id: 7,
+        question_id: "Q7",
+        question_text: {
+            id: "Lorong bercabang dua.\nSatu terang dan riuh suara. Satu lagi gelap dan sepi.\nChame cuma ngangguk, biar kamu yang pilih.",
+            en: "The corridor splits into two.\nOne is bright and noisy. The other is dark and quiet.\nChame just nods, letting you choose.",
         },
         options: [
             {
@@ -301,9 +317,11 @@ const quizData = [
         ],
     },
     {
-        question: {
-            id: "8. Di ujung lorong, ada kotak kecil.\nTulisan di atasnya:\n“Tinggalkan satu hal yang paling berat kamu bawa.”",
-            en: "8. At the end of the corridor, there's a small box.\nA sign reads:\n“Leave behind one thing you carry that’s too heavy.”",
+        id: 8,
+        question_id: "Q8",
+        question_text: {
+            id: "Di ujung lorong, ada kotak kecil.\nTulisan di atasnya:\n“Tinggalkan satu hal yang paling berat kamu bawa.”",
+            en: "At the end of the corridor, there's a small box.\nA sign reads:\n“Leave behind one thing you carry that’s too heavy.”",
         },
         options: [
             {
@@ -338,9 +356,11 @@ const quizData = [
         ],
     },
     {
-        question: {
-            id: "9. Chame menatap kamu:\n“Jadi... kamu kira siapa dirimu yang sebenarnya?”",
-            en: "9. Chame looks at you:\n“So… who do you think you really are?”",
+        id: 9,
+        question_id: "Q9",
+        question_text: {
+            id: "Chame menatap kamu:\n“Jadi... kamu kira siapa dirimu yang sebenarnya?”",
+            en: "Chame looks at you:\n“So… who do you think you really are?”",
         },
         options: [
             {
@@ -381,5 +401,3 @@ const quizData = [
         ],
     },
 ];
-
-export default quizData;
