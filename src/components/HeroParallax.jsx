@@ -98,6 +98,14 @@ const HeroParallax = ({ onScrollComplete }) => {
                 className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[1024px] md:max-h-[60vh] object-contain z-10"
                 alt="chame"
             />
+
+            <button
+                className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white text-sm opacity-70 hover:opacity-100 transition z-30"
+                onClick={() => onScrollComplete?.()}
+            >
+                Start Now
+            </button>
+
         </section>
     );
 };

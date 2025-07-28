@@ -6,8 +6,10 @@ import QuizPage from "./components/QuizPage";
 import ResultPage from "./components/ResultPage";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import HeroParallax from "./components/HeroParallax";
+import PageWrapper from "./components/PageWrapper";
+import { SplitText } from "gsap/SplitText";
 
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger, SplitText);
 
 function App() {
   const [page, setPage] = useState("hero");
@@ -16,25 +18,39 @@ function App() {
   const [result, setResult] = useState(null);
 
   return (
-    <main className="bg-[#043f3a] text-white">
-      <HeroParallax />
-      <LandingPage lang={lang} setLang={setLang} setUserData={setUserData} />
-      <PrologPage lang={lang} />
-      <QuizPage
-        lang={lang}
-        onFinish={(score) => {
-          setResult(score);
-          // Scroll ke bawah pakai ref/gsap
-        }}
-      />
-      <ResultPage
-        score={result}
-        lang={lang}
-        onRestart={() => {
-          setResult(0);
-          // Scroll ke atas pakai ref/gsap
-        }}
-      />
+    <main className="bg-[#043f3a] text-white relative overflow-hidden">
+      <PageWrapper show={page === "hero"}>
+        <HeroParallax onScrollComplete={() => setPage("landing")} />
+      </PageWrapper>
+
+      <PageWrapper show={page === "landing"}>
+        <LandingPage lang={lang} setLang={setLang} setUserData={setUserData} onNext={() => setPage("prolog")} />
+      </PageWrapper>
+
+      <PageWrapper show={page === "prolog"}>
+        <PrologPage lang={lang} onNext={() => setPage("quiz")} />
+      </PageWrapper>
+
+      <PageWrapper show={page === "quiz"}>
+        <QuizPage
+          lang={lang}
+          onFinish={(score) => {
+            setResult(score);
+            setPage("result");
+          }}
+        />
+      </PageWrapper>
+
+      <PageWrapper show={page === "result"}>
+        <ResultPage
+          score={result}
+          lang={lang}
+          onRestart={() => {
+            setResult(0);
+            setPage("landing");
+          }}
+        />
+      </PageWrapper>
     </main>
   );
 }

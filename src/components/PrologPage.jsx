@@ -1,5 +1,6 @@
-// src/components/PrologPage.jsx
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import gsap from "gsap";
+import { SplitText } from "gsap/SplitText";
 
 const prologContent = {
     id: [
@@ -8,7 +9,7 @@ const prologContent = {
         "Tenang, kamu tidak sendiri!",
         "Tes ini membantumu menemukan sayur yang paling menggambarkan dirimu.",
         "Tidak perlu berpikir keras, cukup jujur menjawab apa yang kamu rasa.",
-        "Siap? Yuk mulai!"
+        "Siap? Yuk mulai!",
     ],
     en: [
         "Have you ever felt your zodiac doesn't match your personality?",
@@ -16,30 +17,59 @@ const prologContent = {
         "Relax, you're not alone!",
         "This test helps you find the vegetable that best represents you.",
         "No overthinking—just answer based on what feels right.",
-        "Ready? Let's go!"
-    ]
+        "Ready? Let's go!",
+    ],
 };
 
 const PrologPage = ({ lang, onNext }) => {
     const [index, setIndex] = useState(0);
     const content = prologContent[lang];
+    const textRef = useRef(null);
+    const timeline = useRef(null);
 
     const handleNext = () => {
         if (index < content.length - 1) {
-            setIndex(index + 1);
+            setIndex((prev) => prev + 1);
         } else {
-            onNext(); // lanjut ke quiz
+            onNext();
         }
     };
 
+    useEffect(() => {
+        if (!textRef.current) return;
+
+        if (timeline.current) timeline.current.kill();
+
+        // 💡 Isi teks prolog sesuai index
+        textRef.current.innerText = content[index];
+
+        // Jalankan SplitText
+        const split = new SplitText(textRef.current, { type: "chars" });
+
+        timeline.current = gsap.timeline();
+        timeline.current.from(split.chars, {
+            opacity: 0,
+            y: 10,
+            stagger: 0.03,
+            ease: "power2.out",
+        });
+
+        return () => {
+            split.revert();
+            timeline.current.kill();
+        };
+    }, [index, content]);
+
+
     return (
-        <section className="section active container mx-auto p-6 text-white text-center">
-            <p className="text-lg mb-6 min-h-[100px] transition-opacity duration-500 ease-in-out">
-                {content[index]}
-            </p>
+        <section className="section active container mx-auto p-6 text-white text-center min-h-screen flex flex-col items-center justify-center">
+            <p
+                ref={textRef}
+                className="text-lg mb-6 min-h-[100px] leading-relaxed font-light"
+            />
             <button
                 onClick={handleNext}
-                className="bg-emerald-600 hover:bg-emerald-400 px-6 py-2 rounded-full"
+                className="bg-emerald-600 hover:bg-emerald-400 transition-all px-6 py-2 rounded-full text-white text-sm font-medium"
             >
                 {index === content.length - 1
                     ? lang === "id"
