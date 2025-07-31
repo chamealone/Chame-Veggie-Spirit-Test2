@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>What's Your Spirit Veggie Test | by Chamealone</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fredoka&family=Poppins&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <!-- Landing Page -->
+      <section id="landing" class="section active">
+        <h1>What's Your Spirit Veggie Test</h1>
+        <div class="byline">by Chamealone</div>
+        <div class="language-select">
+          <button onclick="selectLang('id')">🇮🇩 Indonesia</button>
+          <button onclick="selectLang('en')">🇺🇸 English</button>
+        </div>
+        <div class="input-group">
+          <label id="nameLabel">Nama:</label>
+          <input type="text" id="nameInput" placeholder="Masukkan nama..." />
+        </div>
+        <div class="input-group">
+          <label id="igLabel">Instagram (opsional):</label>
+          <input type="text" id="igInput" placeholder="@namamu" />
+        </div>
+        <button class="next-btn" onclick="goToProlog1()">Next</button>
+      </section>
+
+      <!-- Prolog 1 -->
+      <section id="prolog1" class="section">
+        <p class="fade-in" id="prolog1Text"></p>
+      </section>
+
+      <!-- Prolog 2 -->
+      <section id="prolog2" class="section">
+        <p class="fade-in" id="prolog2Text1"></p>
+        <p class="fade-in" style="margin-top: 1rem" id="prolog2Text2"></p>
+        <div class="quiz-options">
+          <button class="option-btn" data-spirits="Bitty,Gingeer" onclick="chooseProlog2(this)">Ayo!</button>
+          <button class="option-btn" data-spirits="Banion,Onyun" onclick="chooseProlog2(this)">Hah?</button>
+          <button class="option-btn" data-spirits="Gowlic,Mubii" onclick="chooseProlog2(this)">Males…</button>
+          <button class="option-btn" data-spirits="Potatoad,Mubii" onclick="chooseProlog2(this)">Coba dulu aja deh.</button>
+          <button class="option-btn" data-spirits="Kroot,Gowlic" onclick="chooseProlog2(this)">Kenapa kamu bantuin aku?</button>
+        </div>
+      </section>
+
+      <!-- Quiz Section -->
+      <section id="quiz" class="section">
+        <div id="quiz-content" class="fade-in">
+          <div id="question-container"></div>
+          <div class="quiz-options" id="options-container"></div>
+        </div>
+        <div class="progress-container">
+          <div class="progress-bar" id="progressBar"></div>
+        </div>
+      </section>
+
+      <!-- Result Section -->
+      <section id="result" class="section">
+        <div class="fade-in" id="result-content" style="text-align: center">
+          <h2 id="result-title"></h2>
+          <img id="result-image" src="" alt="Spirit Result" style="max-width: 100%; height: auto; margin-top: 1rem" />
+          <img id="result-image2" src="" alt="Spirit Result Detail" style="max-width: 100%; height: auto; margin-top: 1rem" />
+        </div>
+      </section>
+    </div>
+
+    <script src="quiz.js"></script>
+    <script src="data.js"></script>
+  </body>
+</html>
